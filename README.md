@@ -13,7 +13,7 @@ In team _**one Hero is a leader**_, and others are team-members.
 Hero start game from _**Level 1**_ with 10XP and can improve himself 
 up to _**Level 10**_.
 
-In one move character can do one acton, which chosen from set of actions
+In one move character can do one action, which chosen from set of actions
 for particular hero.
 
 The team will be fight against monsters in some fabulous location.
