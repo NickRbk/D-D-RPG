@@ -1,6 +1,6 @@
 package io.rybak.model.hero.human.priest;
 
-import io.rybak.model.race.impl.Human;
+import io.rybak.model.race.impl.kind.Human;
 
 public class Priest extends Human {
     public Priest() {

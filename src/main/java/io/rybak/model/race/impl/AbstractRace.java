@@ -5,12 +5,15 @@ import lombok.Getter;
 import lombok.Setter;
 
 public abstract class AbstractRace implements Activity {
+    private static final int MAX_HEALTH = 100;
+    private static final int MIN_HEALTH = 0;
+
     @Getter
     private String race;
     @Getter
     private String heroName;
     @Getter
-    private int health = 100; // health points (hp)
+    private int health = MAX_HEALTH; // health points (hp)
 
 
     @Getter
@@ -29,16 +32,53 @@ public abstract class AbstractRace implements Activity {
     @Setter
     private float rage; // rage points (rp)
 
+    @Getter
+    @Setter
+    private int charisma;
+
+    @Getter
+    @Setter
+    private int stamina;
+
+    @Getter
+    @Setter
+    private int intellect;
+
+    @Getter
+    @Setter
+    private int agility;
+
+    @Getter
+    @Setter
+    private int concentration;
+
     /**
      * constructor for abstract
      * class AbstractRace
      *
-     * @param race     race kind
-     * @param heroName hero name
+     * @param race          race kind
+     * @param heroName      hero name
+     * @param charisma      hero charisma
+     * @param stamina       hero stamina
+     * @param intellect     hero intellect
+     * @param agility       hero agility
+     * @param concentration hero concentration
      */
-    public AbstractRace(String race, String heroName) {
+    public AbstractRace(String race,
+                        String heroName,
+                        int charisma,
+                        int stamina,
+                        int intellect,
+                        int agility,
+                        int concentration) {
+
         this.race = race;
         this.heroName = heroName;
+        this.charisma = charisma;
+        this.stamina = stamina;
+        this.intellect = intellect;
+        this.agility = agility;
+        this.concentration = concentration;
     }
 
     /**
@@ -48,8 +88,8 @@ public abstract class AbstractRace implements Activity {
      * @param health new health
      */
     public void setHealth(int health) {
-        if (health > 100 || health < 0) {
-            this.health = health > 100 ? 100 : 0;
+        if (health > MAX_HEALTH || health < MIN_HEALTH) {
+            this.health = health > MAX_HEALTH ? MAX_HEALTH : MIN_HEALTH;
         } else {
             this.health = health;
         }

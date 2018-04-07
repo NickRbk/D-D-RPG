@@ -1,7 +1,11 @@
 package io.rybak;
 
 public class StartGame {
-    public static void main(String ... args) {
+
+    /**
+     * @param args rm params
+     */
+    public static void main(final String... args) {
         System.out.println("Game started!");
     }
 }

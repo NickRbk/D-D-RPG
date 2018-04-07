@@ -1,9 +1,11 @@
-package io.rybak.model.race.impl;
+package io.rybak.model.race.impl.kind;
+
+import io.rybak.model.race.impl.AbstractRace;
 
 public class Human extends AbstractRace {
 
     public Human(String heroName) {
-        super("Human", heroName);
+        super("Human", heroName, 10, 30, 20, 15, 15);
     }
 
     /**

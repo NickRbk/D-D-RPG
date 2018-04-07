@@ -1,6 +1,6 @@
 package io.rybak.model.hero.dwarf.mechanist;
 
-import io.rybak.model.race.impl.Dwarf;
+import io.rybak.model.race.impl.kind.Dwarf;
 
 public class Mechanist extends Dwarf {
     public Mechanist() {

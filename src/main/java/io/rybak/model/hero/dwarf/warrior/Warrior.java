@@ -1,6 +1,6 @@
 package io.rybak.model.hero.dwarf.warrior;
 
-import io.rybak.model.race.impl.Dwarf;
+import io.rybak.model.race.impl.kind.Dwarf;
 
 public class Warrior extends Dwarf {
     public Warrior() {

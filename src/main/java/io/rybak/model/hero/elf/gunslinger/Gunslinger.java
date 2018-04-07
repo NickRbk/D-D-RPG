@@ -1,6 +1,6 @@
 package io.rybak.model.hero.elf.gunslinger;
 
-import io.rybak.model.race.impl.Elf;
+import io.rybak.model.race.impl.kind.Elf;
 
 public class Gunslinger extends Elf {
     public Gunslinger() {
