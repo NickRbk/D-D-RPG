@@ -47,12 +47,12 @@ public class UserInteraction {
 
         while (counter < teamMembers) {
             // need to declare here to fetch new reference to hero object
-            Map<String, Map<String, AbstractRace>> races = RaceMap.getRace();
+            Map<String, AbstractRace> raceMap = RaceMap.getRace().get(race);
 
             String userInput = in.nextLine().toLowerCase();
 
-            if (races.get(race).containsKey(userInput)) {
-                heroes[counter] = races.get(race).get(userInput);
+            if (raceMap.containsKey(userInput)) {
+                heroes[counter] = raceMap.get(userInput);
                 counter++;
                 if (counter > 0 && counter < 3) Message.askMoreHero(counter);
             } else {

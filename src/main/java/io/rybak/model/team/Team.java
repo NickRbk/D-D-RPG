@@ -28,7 +28,7 @@ public class Team {
     @Override
     public String toString() {
         return String.format("\n\tTeam of %s race, members: %d\n\t\t--> %s",
-                race, heroes.length, printTeamMembers());
+                race.toUpperCase(), heroes.length, printTeamMembers());
     }
 
     // Function to print all members name in team
