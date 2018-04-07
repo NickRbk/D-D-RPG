@@ -1,0 +1,20 @@
+package io.rybak.model.enemy.kind.orkoid;
+
+import io.rybak.model.enemy.AbstractMonster;
+
+public class OrkShaman extends AbstractMonster {
+    private static final int[] DAMAGE_OPTIONS = {2, 6};
+    private static final int[] DAMAGE_OPTIONS_EXTRA = {2, 10};
+    private int coolDown = 3;
+
+    public OrkShaman() {
+        super("Orkoid", "Ork Shaman", 80, 35, 22);
+    }
+
+    @Override
+    public int attack() {
+        // implement damage option, can cast 'bloodlust' on friendly ork
+        // to improve his damage to [2;10]
+        return 0;
+    }
+}
