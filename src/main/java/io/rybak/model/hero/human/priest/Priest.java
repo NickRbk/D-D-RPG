@@ -2,7 +2,7 @@ package io.rybak.model.hero.human.priest;
 
 import io.rybak.model.hero.AbstractAbility;
 import io.rybak.model.hero.human.priest.abilities.map.PriestAbilitiesMap;
-import io.rybak.model.race.impl.kind.Human;
+import io.rybak.model.race.kind.Human;
 import lombok.Getter;
 
 import java.util.Map;

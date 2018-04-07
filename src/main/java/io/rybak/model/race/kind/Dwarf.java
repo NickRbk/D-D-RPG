@@ -1,6 +1,6 @@
-package io.rybak.model.race.impl.kind;
+package io.rybak.model.race.kind;
 
-import io.rybak.model.race.impl.AbstractRace;
+import io.rybak.model.race.AbstractRace;
 
 public class Dwarf extends AbstractRace {
 

@@ -1,10 +1,9 @@
-package io.rybak.model.race.impl;
+package io.rybak.model.race;
 
-import io.rybak.model.race.Activity;
 import lombok.Getter;
 import lombok.Setter;
 
-public abstract class AbstractRace implements Activity {
+public abstract class AbstractRace {
     private static final int MAX_HEALTH = 100;
     private static final int MIN_HEALTH = 0;
 
@@ -94,4 +93,6 @@ public abstract class AbstractRace implements Activity {
             this.health = health;
         }
     }
+
+    public abstract int attack();
 }

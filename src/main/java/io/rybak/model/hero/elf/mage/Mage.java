@@ -2,7 +2,7 @@ package io.rybak.model.hero.elf.mage;
 
 import io.rybak.model.hero.AbstractAbility;
 import io.rybak.model.hero.elf.mage.abilities.map.MagAbilitiesMap;
-import io.rybak.model.race.impl.kind.Elf;
+import io.rybak.model.race.kind.Elf;
 import lombok.Getter;
 
 import java.util.Map;
