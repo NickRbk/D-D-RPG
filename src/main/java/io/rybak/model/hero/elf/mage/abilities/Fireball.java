@@ -1,8 +1,8 @@
 package io.rybak.model.hero.elf.mage.abilities;
 
-import io.rybak.model.hero.AbstractSpell;
+import io.rybak.model.hero.AbstractAbility;
 
-public class Fireball extends AbstractSpell {
+public class Fireball extends AbstractAbility {
 
     private static final int[] DAMAGE_OPTIONS = {3, 10};
 
@@ -11,6 +11,6 @@ public class Fireball extends AbstractSpell {
     }
 
     @Override
-    public void specialSpell() {
+    public void specialAbility() {
     }
 }
