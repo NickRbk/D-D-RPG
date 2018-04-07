@@ -1,9 +1,13 @@
 package io.rybak.model.race;
 
+import io.rybak.model.hero.AbstractAbility;
+import io.rybak.view.MagicColors;
 import lombok.Getter;
 import lombok.Setter;
 
-public abstract class AbstractRace {
+import java.util.Map;
+
+public abstract class AbstractRace implements MagicColors {
     private static final int MAX_HEALTH = 100;
     private static final int MIN_HEALTH = 0;
 
@@ -13,10 +17,7 @@ public abstract class AbstractRace {
     private String heroName;
     @Getter
     private int health = MAX_HEALTH; // health points (hp)
-
-
     @Getter
-    @Setter
     private boolean isLeader;
 
     @Getter
@@ -80,6 +81,11 @@ public abstract class AbstractRace {
         this.concentration = concentration;
     }
 
+    public void setLeader() {
+        this.isLeader = true;
+        this.heroName = YELLOW + this.heroName + RESET;
+    }
+
     /**
      * health should not be more 100
      * and less 0
@@ -95,4 +101,8 @@ public abstract class AbstractRace {
     }
 
     public abstract int attack();
+
+    public abstract Map<String, Map<String, AbstractAbility>> getSpecialAtacks();
+
+    public abstract Map<String, int[]> getAttacks();
 }

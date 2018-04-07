@@ -14,7 +14,7 @@ public class Warrior extends Dwarf {
     Map<String, int[]> attacks = WarriorAbilitiesMap.getAttackMap();
 
     public Warrior() {
-        super("Dwarf");
+        super("Warrior");
     }
 
     @Override

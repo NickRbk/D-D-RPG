@@ -1,6 +1,9 @@
 package io.rybak.model.race.kind;
 
+import io.rybak.model.hero.AbstractAbility;
 import io.rybak.model.race.AbstractRace;
+
+import java.util.Map;
 
 public class Human extends AbstractRace {
 
@@ -16,5 +19,15 @@ public class Human extends AbstractRace {
     @Override
     public int attack() {
         return 0;
+    }
+
+    @Override
+    public Map<String, Map<String, AbstractAbility>> getSpecialAtacks() {
+        return null;
+    }
+
+    @Override
+    public Map<String, int[]> getAttacks() {
+        return null;
     }
 }

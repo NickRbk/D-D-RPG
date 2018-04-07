@@ -9,9 +9,9 @@ import java.util.Map;
 
 public class Paladin extends Human {
     @Getter
-    Map<String, Map<String, AbstractAbility>> specialAtacks = PaladinAbilitiesMap.getSpecialAttackMap();
+    private Map<String, Map<String, AbstractAbility>> specialAtacks = PaladinAbilitiesMap.getSpecialAttackMap();
     @Getter
-    Map<String, int[]> attacks = PaladinAbilitiesMap.getAttackMap();
+    private Map<String, int[]> attacks = PaladinAbilitiesMap.getAttackMap();
 
     public Paladin() {
         super("Paladin");
