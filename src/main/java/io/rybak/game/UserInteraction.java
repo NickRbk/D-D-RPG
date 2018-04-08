@@ -4,6 +4,7 @@ import io.rybak.model.race.AbstractRace;
 import io.rybak.store.RaceMap;
 import io.rybak.view.Message;
 
+import java.util.ArrayList;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -15,52 +16,56 @@ public class UserInteraction {
      *
      * @return name of race
      */
-    public static String askRace() {
-        Map<String, Map<String, AbstractRace>> races = RaceMap.getRace();
+    public static String askTeamName() {
         Message.welcomeInfo();
 
         while (true) {
-            String userInput = in.nextLine().toLowerCase();
+            String userInput = in.nextLine().toUpperCase().trim();
 
-            if (races.containsKey(userInput)) {
+            if (!userInput.isEmpty()) {
                 return userInput;
             } else {
-                Message.errorInfo();
-                Message.printRaces();
+                Message.errorEmptyInput();
             }
         }
     }
 
     /**
-     * * ask about heroes in team of particular race
+     * * ask about heroes (can be from different races)
      *
-     * @param race        concrete race
-     * @param teamMembers heroes in team
+     * @param teamMembers heroes number in team
      * @return array of heroes
      */
-    public static AbstractRace[] askHeroes(String race, int teamMembers) {
-        int counter = 0;
-        AbstractRace[] heroes = new AbstractRace[teamMembers];
+    public static AbstractRace[] askHeroes(int teamMembers) {
+        ArrayList<AbstractRace> teamHeroes = new ArrayList<>();
 
-        Message.printHeroesInfo(race);
-        Message.askHeroLeader(race);
+        Message.printHeroesInfo();
+        Message.askHeroLeader();
 
-        while (counter < teamMembers) {
+        while (teamHeroes.size() < teamMembers) {
+            int teamSizeInitial = teamHeroes.size();
             // need to declare here to fetch new reference to hero object
-            Map<String, AbstractRace> raceMap = RaceMap.getRace().get(race);
+            Map<String, Map<String, AbstractRace>> raceMap = RaceMap.getRace();
 
             String userInput = in.nextLine().toLowerCase();
 
-            if (raceMap.containsKey(userInput)) {
-                heroes[counter] = raceMap.get(userInput);
-                counter++;
-                if (counter > 0 && counter < 3) Message.askMoreHero(counter);
-            } else {
+            raceMap.forEach((race, heroes) -> {
+                heroes.keySet().forEach(hero -> {
+                    if (hero.equals(userInput)) {
+                        teamHeroes.add(raceMap.get(race).get(userInput));
+
+                        int currentTeamSize = teamHeroes.size();
+                        if (currentTeamSize > 0 && currentTeamSize < 3) Message.askMoreHero(currentTeamSize);
+                    }
+                });
+            });
+
+            if(teamSizeInitial == teamHeroes.size()) {
                 Message.errorInfo();
-                Message.printRaceHeroes(race);
+                Message.printAllHeroes();
             }
         }
 
-        return heroes;
+        return teamHeroes.toArray(new AbstractRace[teamHeroes.size()]);
     }
 }

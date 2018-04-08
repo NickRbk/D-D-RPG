@@ -40,7 +40,7 @@ public class MagAbilitiesMap {
         int[] improvementOptions = {-6, -1};
 
         attackMap.put("Wizard Stuff", damageOptions);
-        attackMap.put("Imposition of on improvement", improvementOptions);
+        attackMap.put("Imposition of an improvement", improvementOptions);
 
         return attackMap;
     }
