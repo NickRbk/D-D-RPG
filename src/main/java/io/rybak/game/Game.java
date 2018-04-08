@@ -4,8 +4,8 @@ import io.rybak.model.team.Team;
 
 public class Game {
     public static void start() {
-        String race = UserInteraction.askRace();
-        Team team = new Team(race);
+        String teamName = UserInteraction.askTeamName();
+        Team team = new Team(teamName);
         System.out.println(team.toString());
     }
 }

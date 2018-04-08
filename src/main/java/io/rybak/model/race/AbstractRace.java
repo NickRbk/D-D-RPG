@@ -52,6 +52,10 @@ public abstract class AbstractRace implements MagicColors {
     @Setter
     private int concentration;
 
+    @Getter
+    @Setter
+    private int level = 1;
+
     /**
      * constructor for abstract
      * class AbstractRace
