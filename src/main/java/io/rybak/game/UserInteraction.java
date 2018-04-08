@@ -25,8 +25,7 @@ public class UserInteraction {
             if (!userInput.isEmpty()) {
                 return userInput;
             } else {
-                Message.errorInfo();
-                Message.printRaces();
+                Message.errorEmptyInput();
             }
         }
     }

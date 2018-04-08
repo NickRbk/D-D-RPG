@@ -33,6 +33,10 @@ public class Message implements MagicColors {
         System.out.print(RED + "\tSorry, you need to choose from list: " + RESET);
     }
 
+    public static void errorEmptyInput() {
+        System.out.print(RED + "\tSorry, your field empty :( " + RESET);
+    }
+
     public static void printRaces() {
         System.out.println(raceMap.keySet());
     }
