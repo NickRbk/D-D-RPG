@@ -18,7 +18,13 @@ for particular hero.
 
 The team will be fight against monsters in some fabulous location.
 
-Game ends when the goal is reached, or when the Team's Leader dies.
+_**Location is unique for each play and generated with 
+[Prim's Algorithm](https://en.wikipedia.org/wiki/Prim%27s_algorithm).**_
+For ech play Team of heroes randomly put in some part of our fabulous location
+and start to discover locality, in which exist monsters... or not).
+
+Game ends when the goal is reached (some Rabbit Hole to next location),
+or when the Team's Leader dies.
 
 
 #### Prerequisites:
