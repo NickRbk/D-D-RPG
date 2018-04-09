@@ -1,158 +1,86 @@
 package io.rybak.model.maze;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Random;
 
 public class Maze {
-    private static final int numRows = 30;
-    private static final int numCols = 30;
-    private static String[][] maze = new String[numRows][numCols];
+    // define wall with FALSE flag
+    private static final boolean WALL = false;
 
-    public static void generate() {
+    // save maze dimensions
+    private int width;
+    private int height;
 
-        maze = new String[numRows][numCols];
+    // 2 dimension array of our maze
+    private boolean[][] maze;
 
-        initializeBoard(maze);
-        draw();
-        printMaze();
+    public Maze(int width, int height) {
+        this.width = width;
+        this.height = height;
+
+        generate(width, height);
     }
 
     /**
-     * Initialize board for future maze (STEP 1)
-     *
-     * @param maze array of our maze
+     * Randomized Prim's algorithm
+     * @param width count of columns
+     * @param height count of rows
      */
-    private static void initializeBoard(String[][] maze) {
-        for (int i = 0; i < numRows; i++) {
-            for (int j = 0; j < numCols; j++) {
-                // initialize playground with default layout ("not in maze")
-                maze[i][j] = j < numCols - 1 ? "\u2593\u2593" : "\u2593\u2593\n";
+    private void generate(int width, int height) {
+        this.maze = new boolean[width][height];
+
+        ArrayList<int[]> walls = new ArrayList<>();
+        Random random = new Random();
+        int x = random.nextInt(width);
+        int y = random.nextInt(height);
+        walls.add(new int[]{x, y, x, y});
+
+        while (!walls.isEmpty()) {
+            final int[] f = walls.remove(random.nextInt(walls.size()));
+
+            // define current position tp start
+            x = f[2];
+            y = f[3];
+
+            if (maze[x][y] == WALL) {
+                maze[f[0]][f[1]] = maze[x][y] = !WALL;
+                if (x >= 2 && maze[x - 2][y] == WALL)
+                    walls.add(new int[]{x - 1, y, x - 2, y});
+                if (y >= 2 && maze[x][y - 2] == WALL)
+                    walls.add(new int[]{x, y - 1, x, y - 2});
+                if (x < width - 2 && maze[x + 2][y] == WALL)
+                    walls.add(new int[]{x + 1, y, x + 2, y});
+                if (y < height - 2 && maze[x][y + 2] == WALL)
+                    walls.add(new int[]{x, y + 1, x, y + 2});
             }
         }
     }
 
     /**
-     * Check if our current position is out (STEP 2)
-     * of bounds
-     *
-     * @param row current row
-     * @param col current col
-     * @return true if out of bounds
+     * print maze
      */
-    private static boolean isOutOfBounds(int row, int col) {
-        return row < 0 || col < 0 || row >= numRows || col >= numCols;
-    }
+    public void print() {
+        String border = String.join("", Collections.nCopies(width - 1, "\u2593\u2593"));
+        System.out.format("%s%s%s", "\t\u2593\u2593", border, "\u2593\u2593\u2593\n");
+        for (int row = 0; row < height; row++) {
+            for (int col = 0; col < width; col++) {
+                if (maze[col][row]) {
+                    if (col == 0) {
+                        System.out.format("%s", "\t\u2593\u2593  ");
+                    } else {
+                        System.out.format("%s", col < width - 1 ? "  " : "  \u2593\n");
+                    }
+                } else {
+                    if (col == 0) {
+                        System.out.format("%s", "\t\u2593\u2593\u2593\u2593");
+                    } else {
+                        System.out.format("%s", col < width - 1 ? "\u2593\u2593" : "\u2593\u2593\u2593\n");
+                    }
 
-    /**
-     * check if current position in maze (STEP 3)
-     *
-     * @param row current row
-     * @param col current col
-     * @return true if in Maze (or out bounds)
-     */
-    private static boolean inMaze(int row, int col) {
-        return isOutOfBounds(row, col) || maze[row][col].equals("  "); // "in maze"
-    }
-
-    /**
-     * find all walls around current position (STEP 4)
-     *
-     * @param row current row
-     * @param col current col
-     * @return walls around the current position
-     */
-    private static ArrayList<int[][]> getWalls(int row, int col) {
-        ArrayList<int[][]> walls = new ArrayList<>();
-        int[] source = {row, col};
-
-        if (!inMaze(row, col - 1)) {
-            int[] dest = {row, col - 1};
-            int[][] wall = {source, dest};
-            walls.add(wall);
-        }
-        if (!inMaze(row - 1, col)) {
-            int[] dest = {row - 1, col};
-            int[][] wall = {source, dest};
-            walls.add(wall);
-        }
-        if (!inMaze(row, col + 1)) {
-            int[] dest = {row, col + 1};
-            int[][] wall = {source, dest};
-            walls.add(wall);
-        }
-        if (!inMaze(row + 1, col)) {
-            int[] dest = {row + 1, col};
-            int[][] wall = {source, dest};
-            walls.add(wall);
-        }
-        return walls;
-    }
-
-    /**
-     * print maze in console (STEP PRINT)
-     */
-    private static void printMaze() {
-        for (int row = 0; row < numRows; row++) {
-            for (int col = 0; col < numCols; col++) {
-                System.out.format("%s", maze[row][col]);
+                }
             }
         }
-    }
-
-    // STEP 7
-    private static int curRow = (int) Math.floor(Math.random() * numRows);
-    private static int curCol = (int) Math.floor(Math.random() * numCols);
-
-    /**
-     * draw maze (STEP 5)
-     */
-    private static void draw() {
-        maze[curRow][curCol] = "  ";
-        ArrayList<int[][]> wallsToKnockDown = getWalls(curRow, curCol);
-
-        while (wallsToKnockDown.size() > 0) {
-
-            // HAVE QUESTiONS
-            int[][] wall = wallsToKnockDown.get((int) Math.round(Math.random() * (wallsToKnockDown.size() - 1)));
-//            System.out.println(wall.toString());
-
-            int sourceRow = wall[0][0];
-            int sourceCol = wall[0][1];
-            int destRow = wall[1][0];
-            int destCol = wall[1][1];
-            String destCell = maze[destRow][destCol];
-
-            if (destCell.equals("  ")) {
-                return;
-            }
-
-            maze[destRow][destCol] = "  "; // set new cell as part of maze
-            maze[sourceRow][sourceCol] = "  ";
-
-            wallsToKnockDown.addAll(getWalls(destRow, destCol));
-
-            maze[curRow][curCol] = "  ";
-            maze[destRow][destCol] = "LP";
-
-//            drawCell(curRow, curCol, cells[curRow][curCol]);
-//            drawCell(destRow, destCol, cells[destRow][destCol]);
-//
-//            fill(255, 255, 255);
-//            rect(2 + (cellSize * 2) * (sourceCol + destCol)/2,
-//                    2 + (cellSize * 2) * (sourceRow + destRow)/2,
-//                    cellSize, cellSize);
-
-            printMaze();
-            curRow = destRow;
-            curCol = destCol;
-        }
-    }
-
-
-    private static void makePath(String[][] maze) {
-        maze[28][0] = "  ";
-        maze[28][1] = "  ";
-        maze[28][2] = "  ";
-        maze[27][2] = "  ";
-        maze[26][2] = "  ";
+        System.out.format("%s%s%s", "\t\u2593\u2593", border, "\u2593\u2593\u2593\n");
     }
 }

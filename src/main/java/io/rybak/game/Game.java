@@ -8,5 +8,7 @@ public class Game {
         String teamName = UserInteraction.askTeamName();
         Team team = new Team(teamName);
         System.out.println(team.toString());
+        Maze maze = new Maze(10,10);
+        maze.print();
     }
 }
