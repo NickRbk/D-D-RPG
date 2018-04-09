@@ -2,12 +2,12 @@ package io.rybak.model.hero.dwarf.warrior.abilities;
 
 import io.rybak.model.hero.AbstractAbility;
 
-public class WhrilingAxe extends AbstractAbility {
+public class WhirlingAxe extends AbstractAbility {
 
     private static final int[] DAMAGE_OPTIONS = {2, 10};
 
-    public WhrilingAxe() {
-        super("Whriling Axe", 30, DAMAGE_OPTIONS, 2);
+    public WhirlingAxe() {
+        super("Whirling Axe", 30, DAMAGE_OPTIONS, 2);
     }
 
     @Override

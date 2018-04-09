@@ -22,7 +22,7 @@ public class Dwarf extends AbstractRace {
     }
 
     @Override
-    public Map<String, Map<String, AbstractAbility>> getSpecialAtacks() {
+    public Map<String, Map<String, AbstractAbility>> getSpecialAttacks() {
         return null;
     }
 

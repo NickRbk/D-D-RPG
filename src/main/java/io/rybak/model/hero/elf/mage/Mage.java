@@ -9,7 +9,7 @@ import java.util.Map;
 
 public class Mage extends Elf {
     @Getter
-    Map<String, Map<String, AbstractAbility>> specialAtacks = MagAbilitiesMap.getSpecialAttackMap();
+    Map<String, Map<String, AbstractAbility>> specialAttacks = MagAbilitiesMap.getSpecialAttackMap();
     @Getter
     Map<String, int[]> attacks = MagAbilitiesMap.getAttackMap();
 

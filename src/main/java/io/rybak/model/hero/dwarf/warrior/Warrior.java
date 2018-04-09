@@ -9,7 +9,7 @@ import java.util.Map;
 
 public class Warrior extends Dwarf {
     @Getter
-    Map<String, Map<String, AbstractAbility>> specialAtacks = WarriorAbilitiesMap.getSpecialAttackMap();
+    Map<String, Map<String, AbstractAbility>> specialAttacks = WarriorAbilitiesMap.getSpecialAttackMap();
     @Getter
     Map<String, int[]> attacks = WarriorAbilitiesMap.getAttackMap();
 

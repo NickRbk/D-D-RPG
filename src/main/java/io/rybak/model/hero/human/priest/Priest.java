@@ -10,7 +10,7 @@ import java.util.Map;
 public class Priest extends Human {
     private boolean immunity = false;
     @Getter
-    Map<String, Map<String, AbstractAbility>> specialAtacks = PriestAbilitiesMap.getSpecialAttackMap();
+    Map<String, Map<String, AbstractAbility>> specialAttacks = PriestAbilitiesMap.getSpecialAttackMap();
     @Getter
     Map<String, int[]> attacks = PriestAbilitiesMap.getAttackMap();
 

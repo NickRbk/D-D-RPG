@@ -75,7 +75,7 @@ public class Message implements MagicColors {
                 heroAbility.getAttacks().keySet().forEach(attack1 ->
                         System.out.format(leftAlignFormat, "", "", "", attack1));
 
-                heroAbility.getSpecialAtacks().forEach((feature, attackList) -> {
+                heroAbility.getSpecialAttacks().forEach((feature, attackList) -> {
                     System.out.format(leftAlignFormat, "", "", feature, "");
 
                     attackList.keySet().forEach(attack -> System.out.format(leftAlignFormat, "", "", "", attack));

@@ -9,7 +9,7 @@ import java.util.Map;
 
 public class Mechanist extends Dwarf {
     @Getter
-    Map<String, Map<String, AbstractAbility>> specialAtacks = MechanistAbilitiesMap.getSpecialAttackMap();
+    Map<String, Map<String, AbstractAbility>> specialAttacks = MechanistAbilitiesMap.getSpecialAttackMap();
     @Getter
     Map<String, int[]> attacks = MechanistAbilitiesMap.getAttackMap();
 

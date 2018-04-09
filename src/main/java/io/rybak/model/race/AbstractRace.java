@@ -106,7 +106,7 @@ public abstract class AbstractRace implements MagicColors {
 
     public abstract int attack();
 
-    public abstract Map<String, Map<String, AbstractAbility>> getSpecialAtacks();
+    public abstract Map<String, Map<String, AbstractAbility>> getSpecialAttacks();
 
     public abstract Map<String, int[]> getAttacks();
 }

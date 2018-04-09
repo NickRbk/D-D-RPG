@@ -9,7 +9,7 @@ import java.util.Map;
 
 public class Gunslinger extends Elf {
     @Getter
-    Map<String, Map<String, AbstractAbility>> specialAtacks = GunslingerAbilitiesMap.getSpecialAttackMap();
+    Map<String, Map<String, AbstractAbility>> specialAttacks = GunslingerAbilitiesMap.getSpecialAttackMap();
     @Getter
     Map<String, int[]> attacks = GunslingerAbilitiesMap.getAttackMap();
 

@@ -65,16 +65,7 @@ public class UserInteraction {
 
             String userInput = in.nextLine().toLowerCase();
 
-            raceMap.forEach((race, heroes) -> {
-                heroes.keySet().forEach(hero -> {
-                    if (hero.equals(userInput)) {
-                        teamHeroes.add(raceMap.get(race).get(userInput));
-
-                        int currentTeamSize = teamHeroes.size();
-                        if (currentTeamSize > 0 && currentTeamSize < 3) Message.askMoreHero(currentTeamSize);
-                    }
-                });
-            });
+            addHeroFromMap(raceMap, teamHeroes, userInput);
 
             if(teamSizeInitial == teamHeroes.size()) {
                 Message.errorInfo();
@@ -83,5 +74,29 @@ public class UserInteraction {
         }
 
         return teamHeroes.toArray(new AbstractRace[teamHeroes.size()]);
+    }
+
+
+    private static void addHeroFromMap(Map<String, Map<String, AbstractRace>> raceMap,
+                                       ArrayList<AbstractRace> teamHeroes,
+                                       String userInput) {
+
+        raceMap.forEach((race, heroes) ->
+                heroes.keySet().forEach(hero -> {
+                    if (hero.equals(userInput)) {
+                        teamHeroes.add(raceMap.get(race).get(userInput));
+
+                        int currentTeamSize = teamHeroes.size();
+
+                        // this if statement need here to handle case, when
+                        // we choose team members and need more
+                        //
+                        // Note: outside above 'if' we will execute message
+                        // that we need more hero every time when run
+                        // forEach loop for races and heroes!
+                        if (currentTeamSize > 0 && currentTeamSize < 3) Message.askMoreHero(currentTeamSize);
+                    }
+                })
+        );
     }
 }

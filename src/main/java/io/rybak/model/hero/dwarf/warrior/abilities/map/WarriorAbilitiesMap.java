@@ -2,7 +2,7 @@ package io.rybak.model.hero.dwarf.warrior.abilities.map;
 
 import io.rybak.model.hero.AbstractAbility;
 import io.rybak.model.hero.dwarf.warrior.abilities.StandGround;
-import io.rybak.model.hero.dwarf.warrior.abilities.WhrilingAxe;
+import io.rybak.model.hero.dwarf.warrior.abilities.WhirlingAxe;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -51,7 +51,7 @@ public class WarriorAbilitiesMap {
     private static Map<String, AbstractAbility> createSkillsMap() {
         Map<String, AbstractAbility> skillsMap = new HashMap<>();
 
-        skillsMap.put("Whriling Axe", new WhrilingAxe());
+        skillsMap.put("Whriling Axe", new WhirlingAxe());
         skillsMap.put("Stand my ground", new StandGround());
 
         return skillsMap;
