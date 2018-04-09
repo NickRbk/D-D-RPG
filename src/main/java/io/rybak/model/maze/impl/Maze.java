@@ -1,31 +1,15 @@
-package io.rybak.model.maze;
+package io.rybak.model.maze.impl;
 
-import lombok.Getter;
-import lombok.Setter;
+import io.rybak.model.maze.AbstractMaze;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
 
-public class Maze {
-    // define wall with FALSE flag
-    private static final boolean WALL = false;
-
-    // save maze dimensions
-    @Getter
-    private int width;
-    @Getter
-    private int height;
-
-    // 2 dimension array of our maze
-    @Getter
-    @Setter
-    private boolean[][] maze;
+public class Maze extends AbstractMaze {
 
     public Maze(int width, int height) {
-        this.width = width;
-        this.height = height;
-
+        super(width, height);
         generate(width, height);
     }
 
@@ -35,7 +19,7 @@ public class Maze {
      * @param height count of rows
      */
     private void generate(int width, int height) {
-        this.maze = new boolean[width][height];
+        this.maze = new int[width][height];
 
         ArrayList<int[]> walls = new ArrayList<>();
         Random random = new Random();
@@ -51,7 +35,7 @@ public class Maze {
             y = f[3];
 
             if (maze[x][y] == WALL) {
-                maze[f[0]][f[1]] = maze[x][y] = !WALL;
+                maze[f[0]][f[1]] = maze[x][y] = PATH;
                 if (x >= 2 && maze[x - 2][y] == WALL)
                     walls.add(new int[]{x - 1, y, x - 2, y});
                 if (y >= 2 && maze[x][y - 2] == WALL)
@@ -67,22 +51,41 @@ public class Maze {
     /**
      * print maze
      */
+    @Override
     public void print() {
         String border = String.join("", Collections.nCopies(width - 1, "\u2593\u2593"));
-        System.out.format("%s%s%s", "\t\u2593\u2593", border, "\u2593\u2593\u2593\n");
+        System.out.format("%s%s%s", "\n\n\t\u2593\u2593", border, "\u2593\u2593\u2593\n");
         for (int row = 0; row < height; row++) {
             for (int col = 0; col < width; col++) {
-                if (maze[col][row]) {
+                if (maze[col][row] == PATH) {
                     if (col == 0) {
-                        System.out.format("%s", "\t\u2593\u2593  ");
+                        System.out.format("%s", "\t\u2593\u2593" + PATH_ICON);
                     } else {
-                        System.out.format("%s", col < width - 1 ? "  " : "  \u2593\n");
+                        System.out.format("%s", col < width - 1 ? PATH_ICON : PATH_ICON + "\u2593\n");
+                    }
+                } else if (maze[col][row] == TEAM) {
+                    if (col == 0) {
+                        System.out.format("%s", "\t\u2593\u2593" + TEAM_ICON);
+                    } else {
+                        System.out.format("%s", col < width - 1 ? TEAM_ICON : TEAM_ICON + "\u2593\n");
+                    }
+                } else if (maze[col][row] == ENEMY) {
+                    if (col == 0) {
+                        System.out.format("%s", "\t\u2593\u2593" + ENEMY_ICON);
+                    } else {
+                        System.out.format("%s", col < width - 1 ? ENEMY_ICON : ENEMY_ICON + "\u2593\n");
+                    }
+                } else if (maze[col][row] == OBJECTIVE) {
+                    if (col == 0) {
+                        System.out.format("%s", "\t\u2593\u2593" + OBJECTIVE_ICON);
+                    } else {
+                        System.out.format("%s", col < width - 1 ? OBJECTIVE_ICON : OBJECTIVE_ICON + "\u2593\n");
                     }
                 } else {
                     if (col == 0) {
-                        System.out.format("%s", "\t\u2593\u2593\u2593\u2593");
+                        System.out.format("%s", "\t\u2593\u2593" + WALL_ICON);
                     } else {
-                        System.out.format("%s", col < width - 1 ? "\u2593\u2593" : "\u2593\u2593\u2593\n");
+                        System.out.format("%s", col < width - 1 ? WALL_ICON : WALL_ICON + "\u2593\n");
                     }
 
                 }

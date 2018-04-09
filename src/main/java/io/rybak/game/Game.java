@@ -1,7 +1,8 @@
 package io.rybak.game;
 
+import io.rybak.model.maze.AbstractMaze;
 import io.rybak.model.maze.Location;
-import io.rybak.model.maze.Maze;
+import io.rybak.model.maze.impl.Maze;
 import io.rybak.model.maze.map.MazeMap;
 import io.rybak.model.team.Team;
 
@@ -10,16 +11,16 @@ import java.util.Map;
 public class Game {
     public static void start() {
         String teamName = UserInteraction.askTeamName();
+
         Team team = new Team(teamName);
         System.out.println(team.toString());
-        String gameMode = UserInteraction.askGameMode();
-        Maze maze = new Maze(Mode.valueOf(gameMode).getWidth(), Mode.valueOf(gameMode).getHeight());
 
-        throwTeamOnLocation(maze, team);
-        maze.print();
+        String gameMode = UserInteraction.askGameMode();
+
+        enterToMaze(team, gameMode);
     }
 
-    private static void throwTeamOnLocation(Maze maze, Team team) {
+    private static void throwTeamOnLocation(AbstractMaze maze, Team team) {
         Map<String, Location> mazeMap = MazeMap.getMazeMap(maze.getMaze());
 
         while(true) {
@@ -29,10 +30,15 @@ public class Game {
 
             if (mazeMap.get(key).isPath()) {
                 mazeMap.get(key).setTeam(team);
-                System.out.println("Team on location " + key);
-//                maze.getMaze()[positionX][positionY] = null;
+                maze.getMaze()[positionX][positionY] = 2;
                 return;
             }
         }
+    }
+
+    private static void enterToMaze(Team team, String gameMode) {
+        AbstractMaze maze = new Maze(Mode.valueOf(gameMode).getWidth(), Mode.valueOf(gameMode).getHeight());
+        throwTeamOnLocation(maze, team);
+        maze.print();
     }
 }

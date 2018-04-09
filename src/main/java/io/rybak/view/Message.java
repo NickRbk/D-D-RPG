@@ -30,7 +30,7 @@ public class Message implements MagicColors {
     }
 
     public static void askGameMode(String options) {
-        System.out.print(BLUE + "\n\tChoose game mode -> " + RESET + "[" + options + "]: ");
+        System.out.print(BLUE + "\n\tChoose GAME MODE -> " + RESET + "[" + options + "]: ");
     }
 
     public static void errorInfo() {
