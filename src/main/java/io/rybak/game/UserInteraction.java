@@ -30,6 +30,22 @@ public class UserInteraction {
         }
     }
 
+    public static String askGameMode() {
+        String[] options = {"easy", "medium", "hard"};
+        Message.askGameMode( String.join(", ", options) );
+
+        while (true) {
+            String userInput = in.nextLine().toUpperCase().trim();
+
+            for(Mode mode : Mode.values() ) {
+                if (userInput.equals(mode.name())) {
+                    return userInput;
+                }
+            }
+            Message.errorInfo();
+        }
+    }
+
     /**
      * * ask about heroes (can be from different races)
      *

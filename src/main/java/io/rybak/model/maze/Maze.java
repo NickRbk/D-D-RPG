@@ -1,5 +1,8 @@
 package io.rybak.model.maze;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
@@ -9,10 +12,14 @@ public class Maze {
     private static final boolean WALL = false;
 
     // save maze dimensions
+    @Getter
     private int width;
+    @Getter
     private int height;
 
     // 2 dimension array of our maze
+    @Getter
+    @Setter
     private boolean[][] maze;
 
     public Maze(int width, int height) {

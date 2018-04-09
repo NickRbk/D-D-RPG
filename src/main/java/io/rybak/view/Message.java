@@ -29,6 +29,10 @@ public class Message implements MagicColors {
         System.out.format("%sYour Team needs more heroes (%d | 3):%s ", BLUE, index, RESET);
     }
 
+    public static void askGameMode(String options) {
+        System.out.print(BLUE + "\n\tChoose game mode -> " + RESET + "[" + options + "]: ");
+    }
+
     public static void errorInfo() {
         System.out.print(RED + "\tSorry, you need to choose from list: " + RESET);
     }
