@@ -14,7 +14,7 @@ public class Team {
 
     // Create custom constructor to create Team
     public Team(String name) {
-        this.heroes = createTeam();
+        heroes = createTeam();
         this.name = name;
     }
 

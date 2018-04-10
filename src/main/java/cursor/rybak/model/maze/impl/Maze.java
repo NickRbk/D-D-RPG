@@ -58,29 +58,36 @@ public class Maze extends AbstractMaze {
         System.out.format("%s%s%s", "\n\n\t\u2593\u2593", border, "\u2593\u2593\u2593\n");
         for (int row = 0; row < height; row++) {
             for (int col = 0; col < width; col++) {
-                checkMazeElement(col, row);
+                printMazeElement(col, row);
             }
         }
         System.out.format("%s%s%s", "\t\u2593\u2593", border, "\u2593\u2593\u2593\n");
     }
 
     /**
-     * check int values in maze[][] to define
-     * whick element should to print
+     * print maze element by checking
+     * int values in maze[][]
+     *
      * @param col current column
      * @param row current row
      */
-    private void checkMazeElement(int col, int row) {
-        if (maze[col][row] == PATH) {
-            printMazeElements(col, PATH_ICON);
-        } else if (maze[col][row] == TEAM) {
-            printMazeElements(col, TEAM_ICON);
-        } else if (maze[col][row] == ENEMY) {
-            printMazeElements(col, ENEMY_ICON);
-        } else if (maze[col][row] == OBJECTIVE) {
-            printMazeElements(col, OBJECTIVE_ICON);
-        } else {
-            printMazeElements(col, WALL_ICON);
+    private void printMazeElement(int col, int row) {
+        switch (maze[col][row]) {
+            case PATH:
+                printMazeElements(col, PATH_ICON);
+                break;
+            case TEAM:
+                printMazeElements(col, TEAM_ICON);
+                break;
+            case ENEMY:
+                printMazeElements(col, ENEMY_ICON);
+                break;
+            case OBJECTIVE:
+                printMazeElements(col, OBJECTIVE_ICON);
+                break;
+            default:
+                printMazeElements(col, WALL_ICON);
+                break;
         }
     }
 

@@ -12,7 +12,7 @@ public class BlackDragon extends AbstractMonster {
 
     @Override
     public int attack() {
-        // implement damage option, Spell imune
+        // implement damage option, Spell immune
         return 0;
     }
 }

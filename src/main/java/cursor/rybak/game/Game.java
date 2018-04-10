@@ -13,7 +13,7 @@ public class Game {
         String teamName = UserInteraction.askTeamName();
 
         Team team = new Team(teamName);
-        System.out.println(team.toString());
+        System.out.println(team);
 
         String gameMode = UserInteraction.askGameMode();
 

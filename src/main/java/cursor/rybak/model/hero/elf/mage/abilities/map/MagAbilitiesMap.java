@@ -55,7 +55,7 @@ public class MagAbilitiesMap {
         spellsMap.put("Fireball", new Fireball());
         spellsMap.put("Spell Shield", new SpellShield());
         spellsMap.put("Frost Bolt", new FrostBolt());
-        spellsMap.put("Dispell", new Dispel());
+        spellsMap.put("Dispel", new Dispel());
         spellsMap.put("Stone Gaze", new StoneGaze());
 
         return spellsMap;

@@ -9,7 +9,7 @@ import java.util.Map;
 import java.util.Scanner;
 
 public class UserInteraction {
-    private static Scanner in = new Scanner(System.in);
+    private static final Scanner in = new Scanner(System.in);
 
     /**
      * ask about race for heroes
@@ -24,9 +24,8 @@ public class UserInteraction {
 
             if (!userInput.isEmpty()) {
                 return userInput;
-            } else {
-                Message.errorEmptyInput();
             }
+            Message.errorEmptyInput();
         }
     }
 
@@ -59,15 +58,12 @@ public class UserInteraction {
         Message.askHeroLeader();
 
         while (teamHeroes.size() < teamMembers) {
-            int teamSizeInitial = teamHeroes.size();
             // need to declare here to fetch new reference to hero object
             Map<String, Map<String, AbstractRace>> raceMap = RaceMap.getRace();
 
             String userInput = in.nextLine().toLowerCase();
 
-            addHeroFromMap(raceMap, teamHeroes, userInput);
-
-            if(teamSizeInitial == teamHeroes.size()) {
+            if(!addHeroFromMap(raceMap, teamHeroes, userInput)) {
                 Message.errorInfo();
                 Message.printAllHeroes();
             }
@@ -77,10 +73,11 @@ public class UserInteraction {
     }
 
 
-    private static void addHeroFromMap(Map<String, Map<String, AbstractRace>> raceMap,
+    private static boolean addHeroFromMap(Map<String, Map<String, AbstractRace>> raceMap,
                                        ArrayList<AbstractRace> teamHeroes,
                                        String userInput) {
 
+        int initialTeamSize = teamHeroes.size();
         raceMap.forEach((race, heroes) ->
                 heroes.keySet().forEach(hero -> {
                     if (hero.equals(userInput)) {
@@ -98,5 +95,6 @@ public class UserInteraction {
                     }
                 })
         );
+        return teamHeroes.size() > initialTeamSize;
     }
 }

@@ -51,7 +51,7 @@ public class WarriorAbilitiesMap {
     private static Map<String, AbstractAbility> createSkillsMap() {
         Map<String, AbstractAbility> skillsMap = new HashMap<>();
 
-        skillsMap.put("Whriling Axe", new WhirlingAxe());
+        skillsMap.put("Whirling Axe", new WhirlingAxe());
         skillsMap.put("Stand my ground", new StandGround());
 
         return skillsMap;
