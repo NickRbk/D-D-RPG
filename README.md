@@ -34,6 +34,6 @@ or when the Team's Leader dies.
 - build the maven project ```mvn package```
 - start app with the below cmd
           
-            java -cp target/D-D-RPG-1.0-SNAPSHOT.jar univ.rybak.StartGame
+            java -cp target/D-D-RPG-1.0-SNAPSHOT.jar cursor.rybak.StartGame
 
 
