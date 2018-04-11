@@ -8,7 +8,6 @@ import cursor.rybak.model.hero.human.paladin.Paladin;
 import cursor.rybak.model.hero.human.priest.Priest;
 import cursor.rybak.model.race.AbstractRace;
 
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
