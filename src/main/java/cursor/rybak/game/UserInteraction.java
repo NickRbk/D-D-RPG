@@ -149,56 +149,7 @@ public class UserInteraction {
         String race = askRace();
         AbstractRace hero = askHero(raceMap.get(race), race);
         hero.setHeroName(name);
+
         teamHeroes.add(hero);
     }
-
-//    private static boolean addHeroFromRace(Map<String, AbstractRace> heroes,
-//                                           ArrayList<AbstractRace> teamHeroes,
-//                                           String hero) {
-//
-//        int initialTeamSize = teamHeroes.size();
-//        heroes.keySet().forEach(heroMap -> {
-//            if (heroMap.equals(hero)) {
-//                teamHeroes.add(heroes.get(hero));
-//
-//                int currentTeamSize = teamHeroes.size();
-//
-//                // this if statement need here to handle case, when
-//                // we choose team members and need more
-//                //
-//                // Note: outside above 'if' we will execute message
-//                // that we need more hero every time when run
-//                // forEach loop for races and heroes!
-//                if (currentTeamSize > 0 && currentTeamSize < 3) Message.askMoreHero(currentTeamSize);
-//            }
-//        });
-//
-//        return teamHeroes.size() > initialTeamSize;
-//    }
-
-
-//    private static boolean addHeroFromMap(Map<String, Map<String, AbstractRace>> raceMap,
-//                                       ArrayList<AbstractRace> teamHeroes,
-//                                       String userInput) {
-//
-//        int initialTeamSize = teamHeroes.size();
-//        raceMap.forEach((race, heroes) ->
-//                heroes.keySet().forEach(hero -> {
-//                    if (hero.equals(userInput)) {
-//                        teamHeroes.add(raceMap.get(race).get(userInput));
-//
-//                        int currentTeamSize = teamHeroes.size();
-//
-//                        // this if statement need here to handle case, when
-//                        // we choose team members and need more
-//                        //
-//                        // Note: outside above 'if' we will execute message
-//                        // that we need more hero every time when run
-//                        // forEach loop for races and heroes!
-//                        if (currentTeamSize > 0 && currentTeamSize < 3) Message.askMoreHero(currentTeamSize);
-//                    }
-//                })
-//        );
-//        return teamHeroes.size() > initialTeamSize;
-//    }
 }
