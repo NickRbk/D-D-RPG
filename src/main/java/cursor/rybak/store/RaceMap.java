@@ -9,11 +9,12 @@ import cursor.rybak.model.hero.human.priest.Priest;
 import cursor.rybak.model.race.AbstractRace;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class RaceMap {
     public static Map<String, Map<String, AbstractRace>> getRace() {
-        Map<String, Map<String, AbstractRace>> races = new HashMap<>();
+        Map<String, Map<String, AbstractRace>> races = new LinkedHashMap<>();
 
         races.put("human", getHumanHeroes());
         races.put("elf", getElfHeroes());
@@ -23,7 +24,7 @@ public class RaceMap {
     }
 
     private static Map<String, AbstractRace> getHumanHeroes() {
-        Map<String, AbstractRace> raceHeroes = new HashMap<>();
+        Map<String, AbstractRace> raceHeroes = new LinkedHashMap<>();
 
         raceHeroes.put("priest", new Priest());
         raceHeroes.put("paladin", new Paladin());
@@ -32,7 +33,7 @@ public class RaceMap {
     }
 
     private static Map<String, AbstractRace> getElfHeroes() {
-        Map<String, AbstractRace> raceHeroes = new HashMap<>();
+        Map<String, AbstractRace> raceHeroes = new LinkedHashMap<>();
 
         raceHeroes.put("mage", new Mage());
         raceHeroes.put("gunslinger", new Gunslinger());
@@ -41,7 +42,7 @@ public class RaceMap {
     }
 
     private static Map<String, AbstractRace> getDwarfHeroes() {
-        Map<String, AbstractRace> raceHeroes = new HashMap<>();
+        Map<String, AbstractRace> raceHeroes = new LinkedHashMap<>();
 
         raceHeroes.put("warrior", new Warrior());
         raceHeroes.put("mechanist", new Mechanist());

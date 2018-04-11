@@ -3,8 +3,10 @@ package cursor.rybak.view;
 import cursor.rybak.model.race.AbstractRace;
 import cursor.rybak.store.RaceMap;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.Set;
 
 public class Message implements MagicColors {
     private static Map<String, Map<String, AbstractRace>> raceMap = RaceMap.getRace();
@@ -31,7 +33,7 @@ public class Message implements MagicColors {
     }
 
     public static void errorInfo() {
-        System.out.print(RED + "\tSorry, you need to choose from list: " + RESET);
+        System.out.print(RED + "\tSorry, you need to choose from list above: " + RESET);
     }
 
     public static void errorEmptyInput() {
@@ -39,11 +41,28 @@ public class Message implements MagicColors {
     }
 
     public static void printRaces() {
-        System.out.print(raceMap.keySet() + " -> ");
+        String[] races = raceMap.keySet().toArray(new String[raceMap.keySet().size()]);
+
+        for(int i = 0; i < races.length; i++) {
+            races[i] = String.format("%s%d%s-%s", GREEN, i, RESET, races[i]);
+        }
+
+        System.out.format("[%s] -> ", String.join(", ", races));
     }
 
     public static void printRaceHeroes(String race) {
-        System.out.print(raceMap.get(race).keySet() + " -> ");
+        Set<String> heroesKey = raceMap.get(race).keySet();
+        String[] heroes = heroesKey.toArray(new String[heroesKey.size()]);
+
+        for(int i = 0; i < heroes.length; i++) {
+            heroes[i] = String.format("%s%d%s-%s", GREEN, i, RESET, heroes[i]);
+        }
+
+        System.out.format("[%s] -> ", String.join(", ", heroes));
+    }
+
+    public static void printChosenOption(String option) {
+        System.out.format("\t\t%sYour choice: %s%s\n", YELLOW, option, RESET);
     }
 
     /**

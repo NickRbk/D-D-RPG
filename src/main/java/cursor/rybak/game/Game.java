@@ -17,7 +17,7 @@ public class Game {
 
         Team team = new Team(teamName);
         System.out.println(team);
-//
+
 //        String gameMode = UserInteraction.askGameMode();
 //
 //        enterToMaze(team, gameMode);

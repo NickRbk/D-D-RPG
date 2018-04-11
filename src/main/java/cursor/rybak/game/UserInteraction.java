@@ -7,6 +7,7 @@ import cursor.rybak.view.Message;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.Set;
 
 public class UserInteraction {
     private static final Scanner in = new Scanner(System.in);
@@ -31,49 +32,64 @@ public class UserInteraction {
     }
 
     /**
+     * choose some item from list by options
+     * (validate input)
+     *
+     * @param items String[]
+     * @return chosen option
+     */
+    private static int chooseOption(String[] items) {
+        while (true) {
+            String userInput = in.nextLine();
+
+            if (!userInput.isEmpty() && userInput.matches("\\d+")) {
+                int option = Integer.parseInt(userInput);
+
+                if (option >= 0 && option < items.length) {
+                    return option;
+                }
+            }
+
+            Message.errorInfo();
+        }
+    }
+
+    /**
      * ask about race for heroes
      *
      * @return name of race
      */
     private static String askRace() {
-        Map<String, Map<String, AbstractRace>> races = RaceMap.getRace();
+        Set<String> racesKey = RaceMap.getRace().keySet();
+        String[] races = racesKey.toArray(new String[racesKey.size()]);
 
         Message.askName("race");
         Message.printRaces();
+        int option = chooseOption(races);
 
-        while (true) {
-            String userInput = in.nextLine().toLowerCase();
+        Message.printChosenOption(races[option]);
 
-            if (races.containsKey(userInput)) {
-                return userInput;
-            } else {
-                Message.errorInfo();
-                Message.printRaces();
-            }
-        }
+        return races[option];
     }
 
     /**
      * ask about about hero
      *
-     * @param heroes map of heroes for particular race
-     * @param race race
+     * @param heroesMap map of heroes for particular race
+     * @param race      race
      * @return chosen hero
      */
-    private static AbstractRace askHero(Map<String, AbstractRace> heroes, String race) {
+    private static AbstractRace askHero(Map<String, AbstractRace> heroesMap, String race) {
+        Set<String> heroesKey = heroesMap.keySet();
+        String[] heroes = heroesKey.toArray(new String[heroesKey.size()]);
+
         Message.askName("hero");
         Message.printRaceHeroes(race);
+        int option = chooseOption(heroes);
 
-        while (true) {
-            String userInput = in.nextLine().toLowerCase();
+        Message.printChosenOption(heroes[option]);
 
-            if (heroes.containsKey(userInput)) {
-                return heroes.get(userInput);
-            } else {
-                Message.errorInfo();
-                Message.printRaceHeroes(race);
-            }
-        }
+        return heroesMap.get(heroes[option]);
     }
 
     /**
@@ -83,12 +99,12 @@ public class UserInteraction {
      */
     public static String askGameMode() {
         String[] options = {"easy", "medium", "hard"};
-        Message.askGameMode( String.join(", ", options) );
+        Message.askGameMode(String.join(", ", options));
 
         while (true) {
             String userInput = in.nextLine().toUpperCase().trim();
 
-            for(Mode mode : Mode.values() ) {
+            for (Mode mode : Mode.values()) {
                 if (userInput.equals(mode.name())) {
                     return userInput;
                 }
@@ -113,7 +129,7 @@ public class UserInteraction {
 
             int currentTeamSize = teamHeroes.size();
 
-            if(currentTeamSize < teamMembers) {
+            if (currentTeamSize < teamMembers) {
                 Message.askMoreHero(currentTeamSize, teamMembers);
             }
         }
