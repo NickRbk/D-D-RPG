@@ -44,7 +44,7 @@ public class Message implements MagicColors {
         String[] races = raceMap.keySet().toArray(new String[raceMap.keySet().size()]);
 
         for(int i = 0; i < races.length; i++) {
-            races[i] = String.format("%s%d%s-%s", GREEN, i, RESET, races[i]);
+            races[i] = String.format("%s%d%s-%s", GREEN, i + 1, RESET, races[i]);
         }
 
         System.out.format("[%s] -> ", String.join(", ", races));
@@ -55,7 +55,7 @@ public class Message implements MagicColors {
         String[] heroes = heroesKey.toArray(new String[heroesKey.size()]);
 
         for(int i = 0; i < heroes.length; i++) {
-            heroes[i] = String.format("%s%d%s-%s", GREEN, i, RESET, heroes[i]);
+            heroes[i] = String.format("%s%d%s-%s", GREEN, i + 1, RESET, heroes[i]);
         }
 
         System.out.format("[%s] -> ", String.join(", ", heroes));

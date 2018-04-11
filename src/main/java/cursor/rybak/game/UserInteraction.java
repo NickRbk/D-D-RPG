@@ -45,8 +45,8 @@ public class UserInteraction {
             if (!userInput.isEmpty() && userInput.matches("\\d+")) {
                 int option = Integer.parseInt(userInput);
 
-                if (option >= 0 && option < items.length) {
-                    return option;
+                if (option >= 1 && option <= items.length) {
+                    return option - 1;
                 }
             }
 
