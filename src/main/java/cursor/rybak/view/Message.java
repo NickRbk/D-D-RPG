@@ -11,22 +11,19 @@ public class Message implements MagicColors {
 
     public static void welcomeInfo() {
         System.out.println(CYAN + "\n\tHello player, start game!\n" + RESET);
-        askTeamName();
     }
 
-    private static void askTeamName() {
-        System.out.print(BLUE + "At first choose name for your Team: " + RESET);
+    public static void askName(String item) {
+        System.out.format("%sChoose %s: %s", BLUE, item, RESET);
     }
 
     public static void askHeroLeader() {
-        System.out.print(BLUE + "Time to create your team.\n\tAvailable to choose -> " + RESET);
-        printAllHeroes();
-
-        System.out.print(BLUE + "At first choose a Leader: " + RESET);
+        System.out.println(BLUE + "Time to create your team" + RESET);
+        System.out.println(PURPLE + "\n\tAt first choose a Leader" + RESET);
     }
 
-    public static void askMoreHero(int index) {
-        System.out.format("%sYour Team needs more heroes (%d | 3):%s ", BLUE, index, RESET);
+    public static void askMoreHero(int currentIndex, int lastIndex) {
+        System.out.format("\n\t%s... needs more heroes (%d | %d)%s\n", PURPLE, currentIndex, lastIndex, RESET);
     }
 
     public static void askGameMode(String options) {
@@ -42,7 +39,11 @@ public class Message implements MagicColors {
     }
 
     public static void printRaces() {
-        System.out.println(raceMap.keySet());
+        System.out.print(raceMap.keySet() + " -> ");
+    }
+
+    public static void printRaceHeroes(String race) {
+        System.out.print(raceMap.get(race).keySet() + " -> ");
     }
 
     /**

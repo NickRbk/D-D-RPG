@@ -14,6 +14,9 @@ public abstract class AbstractRace implements MagicColors {
     @Getter
     private String race;
     @Getter
+    private String heroKind;
+    @Getter
+    @Setter
     private String heroName;
     @Getter
     private int health = MAX_HEALTH; // health points (hp)
@@ -61,7 +64,7 @@ public abstract class AbstractRace implements MagicColors {
      * class AbstractRace
      *
      * @param race          race kind
-     * @param heroName      hero name
+     * @param heroKind      hero name
      * @param charisma      hero charisma
      * @param stamina       hero stamina
      * @param intellect     hero intellect
@@ -69,7 +72,7 @@ public abstract class AbstractRace implements MagicColors {
      * @param concentration hero concentration
      */
     public AbstractRace(String race,
-                        String heroName,
+                        String heroKind,
                         int charisma,
                         int stamina,
                         int intellect,
@@ -77,7 +80,7 @@ public abstract class AbstractRace implements MagicColors {
                         int concentration) {
 
         this.race = race;
-        this.heroName = heroName;
+        this.heroKind = heroKind;
         this.charisma = charisma;
         this.stamina = stamina;
         this.intellect = intellect;

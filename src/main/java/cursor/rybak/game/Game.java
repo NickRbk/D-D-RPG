@@ -5,19 +5,22 @@ import cursor.rybak.model.maze.Location;
 import cursor.rybak.model.maze.impl.Maze;
 import cursor.rybak.model.maze.map.MazeMap;
 import cursor.rybak.model.team.Team;
+import cursor.rybak.view.Message;
 
 import java.util.Map;
 
 public class Game {
     public static void start() {
-        String teamName = UserInteraction.askTeamName();
+        Message.welcomeInfo();
+
+        String teamName = UserInteraction.askName("Team name");
 
         Team team = new Team(teamName);
         System.out.println(team);
-
-        String gameMode = UserInteraction.askGameMode();
-
-        enterToMaze(team, gameMode);
+//
+//        String gameMode = UserInteraction.askGameMode();
+//
+//        enterToMaze(team, gameMode);
     }
 
     private static void throwTeamOnLocation(AbstractMaze maze, Team team) {
