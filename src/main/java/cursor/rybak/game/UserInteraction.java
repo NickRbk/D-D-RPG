@@ -196,10 +196,10 @@ public class UserInteraction {
 
             option = chooseOption(options);
 
-            if(options[option].equals("INFO")){
+            if (options[option].equals("INFO")) {
                 Message.characteristicsInfo();
             }
-        } while(options[option].equals("INFO"));
+        } while (options[option].equals("INFO"));
 
         Message.printChosenOption(options[option]);
         return options[option];
@@ -222,6 +222,7 @@ public class UserInteraction {
                     && parseInt(userInput) > 0
                     && parseInt(userInput) <= remainedPoints) {
 
+                updateXp(hero, parseInt(userInput));
                 upgradeCharacteristic(characteristic, hero, parseInt(userInput));
                 remainedPoints -= parseInt(userInput);
                 Message.printUpgradeInfo(userInput, characteristic, hero.getHeroName());
@@ -233,6 +234,17 @@ public class UserInteraction {
                 Message.errorOutOfBound(remainedPoints);
             }
         }
+    }
+
+
+    /**
+     * update hero XP
+     *
+     * @param hero      current hero
+     * @param userInput input value
+     */
+    private static void updateXp(AbstractRace hero, int userInput) {
+        hero.setXp(hero.getXp() - (double) userInput);
     }
 
 

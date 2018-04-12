@@ -22,7 +22,7 @@ public abstract class AbstractRace implements MagicColors {
     @Setter
     private String heroName;
     @Getter
-    private int health = INIT_VALUE; // health points (hp)
+    private double health = INIT_VALUE; // health points (hp)
     @Getter
     private boolean isLeader;
 
@@ -31,10 +31,10 @@ public abstract class AbstractRace implements MagicColors {
     private double xp = 10; // skill points (xp)
 
     @Getter
-    private int mana = INIT_VALUE; // manna point for spells (mp)
+    private double mana = INIT_VALUE; // manna point for spells (mp)
 
     @Getter
-    private int rage = INIT_VALUE; // rage points (rp)
+    private double rage = INIT_VALUE; // rage points (rp)
 
     @Getter
     private int charisma;
@@ -113,34 +113,28 @@ public abstract class AbstractRace implements MagicColors {
         // 2% XP gain for every two points
         int remainder = charisma % 2;
         if (remainder == 0) {
-            this.xp += 0.02 * charisma / 2;
+            this.xp += 0.02 * this.xp * charisma / 2;
         } else {
-            this.xp += 0.02 * (charisma - remainder);
+            this.xp += 0.02 * this.xp * (charisma - remainder);
         }
 
         // 1 additional initiative point per 2 points
-        // CODE WILL BE THERE
+        // CODE WILL BE HERE
 
 
         // charisma > 40 allows to fear enemies
         // (0.75% chance per 2 points of charisma)
-        // CODE WILL BE THERE
+        // CODE WILL BE HERE
     }
 
     public void setStamina(int stamina) {
         this.stamina += stamina;
-        this.health += 2 * stamina;
-
-        // 0.25 health regen per 1 stamina point
-        // CODE WILL BE THERE
+        this.health += 2 * stamina + 0.25 * this.health;
     }
 
     public void setIntellect(int intellect) {
         this.intellect += intellect;
-        this.mana += 2 * intellect;
-
-        // 0.25 mana regen per 1 intellect point
-        // CODE WILL BE THERE
+        this.mana += 2 * intellect + 0.25 * this.mana;
     }
 
     public void setAgility(int agility) {
@@ -148,10 +142,18 @@ public abstract class AbstractRace implements MagicColors {
         this.rage += 4 * agility;
 
         // chance to avoid hit 1% per 2 points
-        // CODE WILL BE THERE
+        // CODE WILL BE HERE
     }
 
     public void setConcentration(int concentration) {
-        // ???
+        this.concentration += concentration;
+        this.health += 2 * concentration;
+        this.mana += 1.5 * concentration;
+
+        // 1 rp regen per 1 turn per 1 point
+        // CODE WILL BE HERE
+
+        // 1 turn cd decresion per 25 points
+        // CODE WILL BE HERE
     }
 }

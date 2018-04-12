@@ -42,7 +42,7 @@ public class Message implements MagicColors {
                 "\t\t| 0.25mp regen per 1 point\n" +
 
                 "\t4) AGILITY\n" +
-                "\t\t| per additional 1 agility point hero gain 2 rage points (rp)\n" +
+                "\t\t| per additional 1 agility point hero gain 4 rage points (rp)\n" +
                 "\t\t| chance to avoid hit 1% per 2 points\n" +
 
                 "\t5) CONCENTRATION\n" +
@@ -256,6 +256,8 @@ public class Message implements MagicColors {
      * @param hero   array of heroes
      */
     private static void printHeroesVitalCharacteristic(String format, AbstractRace[] hero) {
+        String doubleFormat = "| %-20s | %-20.2f | %-20.2f | %-20.2f |%n";
+
         System.out.format(format, "Profession",
                 hero[0].getHeroKind() + "  (" + hero[0].getRace() + ")",
                 hero[1].getHeroKind() + "  (" + hero[1].getRace() + ")",
@@ -265,18 +267,18 @@ public class Message implements MagicColors {
         System.out.format(format, "Level",
                 hero[0].getLevel(), hero[1].getLevel(), hero[2].getLevel());
 
-        System.out.format(format, "XP",
+        System.out.format(doubleFormat, "XP",
                 hero[0].getXp(), hero[1].getXp(), hero[2].getXp());
 
         printTeamTableDivider();
 
-        System.out.format(format, "Health",
+        System.out.format(doubleFormat, "Health",
                 hero[0].getHealth(), hero[1].getHealth(), hero[2].getHealth());
 
-        System.out.format(format, "Mana",
+        System.out.format(doubleFormat, "Mana",
                 hero[0].getMana(), hero[1].getMana(), hero[2].getMana());
 
-        System.out.format(format, "Rage",
+        System.out.format(doubleFormat, "Rage",
                 hero[0].getRage(), hero[1].getRage(), hero[2].getRage());
     }
 
