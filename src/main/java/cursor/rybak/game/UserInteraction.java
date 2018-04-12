@@ -161,7 +161,7 @@ public class UserInteraction {
      * @param hero instance of particular hero
      */
     private static void distributePoints(AbstractRace hero) {
-        int remainedPoints = hero.getXp();
+        int remainedPoints = (int)hero.getXp();
         Message.printDistributionIntro(remainedPoints);
 
         while (remainedPoints > 0) {
@@ -228,19 +228,19 @@ public class UserInteraction {
     private static void upgradeCharacteristic(String characteristic, AbstractRace hero, int points) {
         switch (characteristic) {
             case "charisma":
-                hero.setCharisma(hero.getCharisma() + points);
+                hero.setCharisma(points);
                 break;
             case "stamina":
-                hero.setStamina(hero.getStamina() + points);
+                hero.setStamina(points);
                 break;
             case "intellect":
-                hero.setIntellect(hero.getIntellect() + points);
+                hero.setIntellect(points);
                 break;
             case "agility":
-                hero.setAgility(hero.getAgility() + points);
+                hero.setAgility(points);
                 break;
             case "concentration":
-                hero.setConcentration(hero.getConcentration() + points);
+                hero.setConcentration(points);
                 break;
         }
     }

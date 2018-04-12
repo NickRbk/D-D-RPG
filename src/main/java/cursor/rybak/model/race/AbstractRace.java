@@ -28,34 +28,27 @@ public abstract class AbstractRace implements MagicColors {
 
     @Getter
     @Setter
-    private int xp = 10; // skill points (xp)
+    private double xp = 10; // skill points (xp)
 
     @Getter
-    @Setter
     private int mana = INIT_VALUE; // manna point for spells (mp)
 
     @Getter
-    @Setter
     private int rage = INIT_VALUE; // rage points (rp)
 
     @Getter
-    @Setter
     private int charisma;
 
     @Getter
-    @Setter
     private int stamina;
 
     @Getter
-    @Setter
     private int intellect;
 
     @Getter
-    @Setter
     private int agility;
 
     @Getter
-    @Setter
     private int concentration;
 
     @Getter
@@ -112,4 +105,53 @@ public abstract class AbstractRace implements MagicColors {
     public abstract Map<String, Map<String, AbstractAbility>> getSpecialAttacks();
 
     public abstract Map<String, int[]> getAttacks();
+
+
+    public void setCharisma(int charisma) {
+        this.charisma += charisma;
+
+        // 2% XP gain for every two points
+        int remainder = charisma % 2;
+        if (remainder == 0) {
+            this.xp += 0.02 * charisma / 2;
+        } else {
+            this.xp += 0.02 * (charisma - remainder);
+        }
+
+        // 1 additional initiative point per 2 points
+        // CODE WILL BE THERE
+
+
+        // charisma > 40 allows to fear enemies
+        // (0.75% chance per 2 points of charisma)
+        // CODE WILL BE THERE
+    }
+
+    public void setStamina(int stamina) {
+        this.stamina += stamina;
+        this.health += 2 * stamina;
+
+        // 0.25 health regen per 1 stamina point
+        // CODE WILL BE THERE
+    }
+
+    public void setIntellect(int intellect) {
+        this.intellect += intellect;
+        this.mana += 2 * intellect;
+
+        // 0.25 mana regen per 1 intellect point
+        // CODE WILL BE THERE
+    }
+
+    public void setAgility(int agility) {
+        this.agility += agility;
+        this.rage += 4 * agility;
+
+        // chance to avoid hit 1% per 2 points
+        // CODE WILL BE THERE
+    }
+
+    public void setConcentration(int concentration) {
+        // ???
+    }
 }

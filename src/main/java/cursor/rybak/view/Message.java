@@ -228,6 +228,14 @@ public class Message implements MagicColors {
                 hero[2].getHeroKind() + "  (" + hero[2].getRace() + ")"
         );
 
+        System.out.format(format, "Level",
+                hero[0].getLevel(), hero[1].getLevel(), hero[2].getLevel());
+
+        System.out.format(format, "XP",
+                hero[0].getXp(), hero[1].getXp(), hero[2].getXp());
+
+        printTeamTableDivider();
+
         System.out.format(format, "Health",
                 hero[0].getHealth(), hero[1].getHealth(), hero[2].getHealth());
 
