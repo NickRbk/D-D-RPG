@@ -8,8 +8,11 @@ import lombok.Setter;
 import java.util.Map;
 
 public abstract class AbstractRace implements MagicColors {
-    private static final int MAX_HEALTH = 100;
-    private static final int MIN_HEALTH = 0;
+    private static final int INIT_HEALTH = 100;
+    private static final int MIN_VALUE = 0;
+
+    @Getter
+    private String[] keyToUpgrade = {"charisma", "stamina", "intellect", "agility", "concentration"};
 
     @Getter
     private String race;
@@ -19,21 +22,21 @@ public abstract class AbstractRace implements MagicColors {
     @Setter
     private String heroName;
     @Getter
-    private int health = MAX_HEALTH; // health points (hp)
+    private int health = INIT_HEALTH; // health points (hp)
     @Getter
     private boolean isLeader;
 
     @Getter
     @Setter
-    private float xp = 10f; // skill points (xp)
+    private int xp = 10; // skill points (xp)
 
     @Getter
     @Setter
-    private float mana; // manna point for spells (mp)
+    private int mana; // manna point for spells (mp)
 
     @Getter
     @Setter
-    private float rage; // rage points (rp)
+    private int rage; // rage points (rp)
 
     @Getter
     @Setter
@@ -90,21 +93,19 @@ public abstract class AbstractRace implements MagicColors {
 
     public void setLeader() {
         this.isLeader = true;
-        this.heroName = YELLOW + this.heroName + RESET;
+//        this.heroName = YELLOW + this.heroName + RESET;
     }
 
-    /**
-     * health should not be more 100
-     * and less 0
-     *
-     * @param health new health
-     */
     public void setHealth(int health) {
-        if (health > MAX_HEALTH || health < MIN_HEALTH) {
-            this.health = health > MAX_HEALTH ? MAX_HEALTH : MIN_HEALTH;
-        } else {
-            this.health = health;
-        }
+        this.health = health < MIN_VALUE ? MIN_VALUE : health;
+    }
+
+    public void setMana(int mana) {
+        this.mana = mana < MIN_VALUE ? MIN_VALUE : mana;
+    }
+
+    public void setRage(int rage) {
+        this.rage = rage < MIN_VALUE ? MIN_VALUE : rage;
     }
 
     public abstract int attack();

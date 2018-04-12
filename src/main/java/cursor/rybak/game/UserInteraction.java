@@ -150,6 +150,68 @@ public class UserInteraction {
         AbstractRace hero = askHero(raceMap.get(race), race);
         hero.setHeroName(name);
 
+        distributePoints(hero);
+
         teamHeroes.add(hero);
+    }
+
+    private static void distributePoints(AbstractRace hero) {
+        int remainedPoints = hero.getXp();
+        Message.printDistributionIntro(remainedPoints);
+        Message.printRemainedPoints(remainedPoints);
+
+        while (remainedPoints != 0) {
+            String userInput = in.nextLine();
+
+            if (!userInput.isEmpty()
+                    && userInput.matches("\\d+")
+                    && parseInt(userInput) > 0
+                    && parseInt(userInput) <= remainedPoints) {
+
+                String[] options = hero.getKeyToUpgrade();
+
+                Message.askName("characteristic to upgrade");
+                Message.printKeyToUpgrade(options.clone());
+
+                int option = chooseOption(options);
+                Message.printChosenOption(options[option]);
+
+                upgradeCharacteristic(options[option], hero, parseInt(userInput));
+
+                remainedPoints -= parseInt(userInput);
+
+                System.out.format("\t\tYou choose %s\n", userInput);
+
+                if(remainedPoints != 0) {
+                    Message.printRemainedPoints(remainedPoints);
+                }
+            } else {
+                Message.errorOutOfBound(remainedPoints);
+            }
+        }
+    }
+
+    private static void upgradeCharacteristic(String characteristic, AbstractRace hero, int points) {
+        switch(characteristic) {
+            case "charisma":
+                hero.setCharisma( hero.getCharisma() + points );
+                break;
+            case "stamina":
+                hero.setCharisma( hero.getStamina() + points );
+                break;
+            case "intellect":
+                hero.setCharisma( hero.getIntellect() + points );
+                break;
+            case "agility":
+                hero.setCharisma( hero.getAgility() + points );
+                break;
+            case "concentration":
+                hero.setCharisma( hero.getConcentration() + points );
+                break;
+        }
+    }
+
+    private static int parseInt(String number) {
+        return Integer.parseInt(number);
     }
 }

@@ -1,10 +1,9 @@
 package cursor.rybak.view;
 
 import cursor.rybak.model.race.AbstractRace;
+import cursor.rybak.model.team.Team;
 import cursor.rybak.store.RaceMap;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 import java.util.Map;
 import java.util.Set;
 
@@ -47,7 +46,7 @@ public class Message implements MagicColors {
             races[i] = String.format("%s%d%s-%s", GREEN, i + 1, RESET, races[i]);
         }
 
-        System.out.format("[%s] -> ", String.join(", ", races));
+        printOptions(races);
     }
 
     public static void printRaceHeroes(String race) {
@@ -57,8 +56,19 @@ public class Message implements MagicColors {
         for(int i = 0; i < heroes.length; i++) {
             heroes[i] = String.format("%s%d%s-%s", GREEN, i + 1, RESET, heroes[i]);
         }
+        printOptions(heroes);
+    }
 
-        System.out.format("[%s] -> ", String.join(", ", heroes));
+    public static void printKeyToUpgrade(String[] characteristicsKey) {
+        for(int i = 0; i < characteristicsKey.length; i++) {
+            characteristicsKey[i] = String.format("%s%d%s-%s", GREEN, i + 1, RESET, characteristicsKey[i]);
+        }
+        System.out.print("\n");
+        printOptions(characteristicsKey);
+    }
+
+    private static void printOptions(String [] options) {
+        System.out.format("[%s] -> ", String.join(", ", options));
     }
 
     public static void printChosenOption(String option) {
@@ -74,7 +84,82 @@ public class Message implements MagicColors {
 //        raceMap.values().forEach(heroes -> heroesName.addAll(heroes.keySet()));
 //        System.out.println(heroesName);
 //    }
-//
+
+
+    private static void printTeamTableHeader(String format, AbstractRace[] hero) {
+        printTeamTableDivider();
+        System.out.format(format, "Characteristic\\Hero",
+                hero[0].getHeroName() + " (L)", hero[1].getHeroName(), hero[2].getHeroName());
+        printTeamTableDivider();
+    }
+
+    private static void printTeamTableDivider() {
+        System.out.format("+----------------------+----------------------+----------------------+----------------------+%n");
+    }
+
+    private static void printTeamMemberInfo(String format, AbstractRace[] hero) {
+
+        printHeroesVitalCharacteristic(format, hero);
+        printTeamTableDivider();
+
+        printHeroesCharacteristic(format, hero);
+        printTeamTableDivider();
+    }
+
+    private static void printHeroesVitalCharacteristic(String format, AbstractRace[] hero) {
+        System.out.format(format, "Profession",
+                hero[0].getHeroKind() + "  (" + hero[0].getRace() + ")",
+                hero[1].getHeroKind() + "  (" + hero[1].getRace() + ")",
+                hero[2].getHeroKind() + "  (" + hero[2].getRace() + ")"
+        );
+
+        System.out.format(format, "Health",
+                hero[0].getHealth(), hero[1].getHealth(), hero[2].getHealth());
+
+        System.out.format(format, "Mana",
+                hero[0].getMana(), hero[1].getMana(), hero[2].getMana());
+
+        System.out.format(format, "Rage",
+                hero[0].getRage(), hero[1].getRage(), hero[2].getRage());
+    }
+
+    private static void printHeroesCharacteristic(String format, AbstractRace[] hero) {
+        System.out.format(format, "Charisma",
+                hero[0].getCharisma(), hero[1].getCharisma(), hero[2].getCharisma());
+
+        System.out.format(format, "Stamina",
+                hero[0].getStamina(), hero[1].getStamina(), hero[2].getStamina());
+
+        System.out.format(format, "Intellect",
+                hero[0].getIntellect(), hero[1].getIntellect(), hero[2].getIntellect());
+
+        System.out.format(format, "Agility",
+                hero[0].getAgility(), hero[1].getAgility(), hero[2].getAgility());
+
+        System.out.format(format, "Concentration",
+                hero[0].getConcentration(), hero[1].getConcentration(), hero[2].getConcentration());
+    }
+
+    public static void printTeamInfo(Team team) {
+        String leftAlignFormat = "| %-20s | %-20s | %-20s | %-20s |%n";
+        System.out.println("\n\tTeam: " + team.getName());
+        printTeamTableHeader(leftAlignFormat, team.getHeroes());
+        printTeamMemberInfo(leftAlignFormat, team.getHeroes());
+    }
+
+    public static void printRemainedPoints(int points) {
+        System.out.format("You can distribute %d points: ", points);
+    }
+
+    public static void errorOutOfBound(int points) {
+        System.out.format("\t%sSorry, you need to choose from range [1:%d]:%s ", RED, points, RESET);
+    }
+
+    public static void printDistributionIntro(int points) {
+        System.out.format("\t%sNow you should upgrade your hero. You have %d points for that%s\n", BLUE, points, RESET);
+    }
+
+
 //    /**
 //     * print all heroes with
 //     * their abilities from all races
