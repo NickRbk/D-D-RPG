@@ -31,6 +31,7 @@ public class UserInteraction {
         }
     }
 
+
     /**
      * choose some item from list by options
      * (validate input)
@@ -54,6 +55,7 @@ public class UserInteraction {
         }
     }
 
+
     /**
      * ask about race for heroes
      *
@@ -71,6 +73,7 @@ public class UserInteraction {
 
         return races[option];
     }
+
 
     /**
      * ask about about hero
@@ -92,6 +95,7 @@ public class UserInteraction {
         return heroesMap.get(heroes[option]);
     }
 
+
     /**
      * ask about game mode (for maze edition)
      *
@@ -112,6 +116,7 @@ public class UserInteraction {
             Message.errorInfo();
         }
     }
+
 
     /**
      * * ask about team members (can be from different races)
@@ -137,6 +142,7 @@ public class UserInteraction {
         return teamHeroes.toArray(new AbstractRace[teamHeroes.size()]);
     }
 
+
     /**
      * initialize hero with name of the particular race
      *
@@ -155,13 +161,14 @@ public class UserInteraction {
         teamHeroes.add(hero);
     }
 
+
     /**
      * distribute point to upgrade from total points
      *
      * @param hero instance of particular hero
      */
     private static void distributePoints(AbstractRace hero) {
-        int remainedPoints = (int)hero.getXp();
+        int remainedPoints = (int) hero.getXp();
         Message.printDistributionIntro(remainedPoints);
 
         while (remainedPoints > 0) {
@@ -173,6 +180,7 @@ public class UserInteraction {
         }
     }
 
+
     /**
      * ask for particular hero's characteristic
      *
@@ -180,14 +188,23 @@ public class UserInteraction {
      * @return chosen option
      */
     private static String askKeyToUpgrade(String[] options) {
-        Message.askName("characteristic to upgrade");
-        Message.printKeyToUpgrade(options.clone());
+        int option;
 
-        int option = chooseOption(options);
+        do {
+            Message.askName("characteristic to upgrade");
+            Message.printKeyToUpgrade(options.clone());
+
+            option = chooseOption(options);
+
+            if(options[option].equals("INFO")){
+                Message.characteristicsInfo();
+            }
+        } while(options[option].equals("INFO"));
+
         Message.printChosenOption(options[option]);
-
         return options[option];
     }
+
 
     /**
      * upgrade particular hero's characteristic
@@ -218,6 +235,7 @@ public class UserInteraction {
         }
     }
 
+
     /**
      * upgrade particular characteristic (in switch)
      *
@@ -244,6 +262,7 @@ public class UserInteraction {
                 break;
         }
     }
+
 
     /**
      * helper function to parse String to int

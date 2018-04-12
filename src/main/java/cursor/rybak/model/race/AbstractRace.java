@@ -12,7 +12,7 @@ public abstract class AbstractRace implements MagicColors {
     private static final int MIN_VALUE = 0;
 
     @Getter
-    private String[] keyToUpgrade = {"charisma", "stamina", "intellect", "agility", "concentration"};
+    private String[] keyToUpgrade = {"charisma", "stamina", "intellect", "agility", "concentration", "INFO"};
 
     @Getter
     private String race;
