@@ -155,62 +155,102 @@ public class UserInteraction {
         teamHeroes.add(hero);
     }
 
+    /**
+     * distribute point to upgrade from total points
+     *
+     * @param hero instance of particular hero
+     */
     private static void distributePoints(AbstractRace hero) {
         int remainedPoints = hero.getXp();
         Message.printDistributionIntro(remainedPoints);
-        Message.printRemainedPoints(remainedPoints);
 
-        while (remainedPoints != 0) {
+        while (remainedPoints > 0) {
+            String characteristic = askKeyToUpgrade(hero.getKeyToUpgrade());
+
+            Message.printRemainedPoints(remainedPoints);
+
+            remainedPoints = upgradeHeroKey(remainedPoints, characteristic, hero);
+        }
+    }
+
+    /**
+     * ask for particular hero's characteristic
+     *
+     * @param options array of options
+     * @return chosen option
+     */
+    private static String askKeyToUpgrade(String[] options) {
+        Message.askName("characteristic to upgrade");
+        Message.printKeyToUpgrade(options.clone());
+
+        int option = chooseOption(options);
+        Message.printChosenOption(options[option]);
+
+        return options[option];
+    }
+
+    /**
+     * upgrade particular hero's characteristic
+     *
+     * @param remainedPoints total points
+     * @param characteristic concrete key needs to upgrade
+     * @param hero           instance of particular hero
+     * @return remained points
+     */
+    private static int upgradeHeroKey(int remainedPoints, String characteristic, AbstractRace hero) {
+        while (true) {
             String userInput = in.nextLine();
-
             if (!userInput.isEmpty()
                     && userInput.matches("\\d+")
                     && parseInt(userInput) > 0
                     && parseInt(userInput) <= remainedPoints) {
 
-                String[] options = hero.getKeyToUpgrade();
-
-                Message.askName("characteristic to upgrade");
-                Message.printKeyToUpgrade(options.clone());
-
-                int option = chooseOption(options);
-                Message.printChosenOption(options[option]);
-
-                upgradeCharacteristic(options[option], hero, parseInt(userInput));
-
+                upgradeCharacteristic(characteristic, hero, parseInt(userInput));
                 remainedPoints -= parseInt(userInput);
+                Message.printUpgradeInfo(userInput, characteristic, hero.getHeroName());
 
-                System.out.format("\t\tYou choose %s\n", userInput);
+                if (remainedPoints != 0) Message.printRemainedInfo(remainedPoints);
+                return remainedPoints;
 
-                if(remainedPoints != 0) {
-                    Message.printRemainedPoints(remainedPoints);
-                }
             } else {
                 Message.errorOutOfBound(remainedPoints);
             }
         }
     }
 
+    /**
+     * upgrade particular characteristic (in switch)
+     *
+     * @param characteristic concrete key needs to upgrade
+     * @param hero           instance of particular hero
+     * @param points         upgrade points
+     */
     private static void upgradeCharacteristic(String characteristic, AbstractRace hero, int points) {
-        switch(characteristic) {
+        switch (characteristic) {
             case "charisma":
-                hero.setCharisma( hero.getCharisma() + points );
+                hero.setCharisma(hero.getCharisma() + points);
                 break;
             case "stamina":
-                hero.setCharisma( hero.getStamina() + points );
+                hero.setStamina(hero.getStamina() + points);
                 break;
             case "intellect":
-                hero.setCharisma( hero.getIntellect() + points );
+                hero.setIntellect(hero.getIntellect() + points);
                 break;
             case "agility":
-                hero.setCharisma( hero.getAgility() + points );
+                hero.setAgility(hero.getAgility() + points);
                 break;
             case "concentration":
-                hero.setCharisma( hero.getConcentration() + points );
+                hero.setConcentration(hero.getConcentration() + points);
                 break;
         }
     }
 
+    /**
+     * helper function to parse String to int
+     *
+     * @param number string that represented number
+     * @return integer
+     */
     private static int parseInt(String number) {
         return Integer.parseInt(number);
     }

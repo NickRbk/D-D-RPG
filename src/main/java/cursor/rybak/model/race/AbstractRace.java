@@ -8,7 +8,7 @@ import lombok.Setter;
 import java.util.Map;
 
 public abstract class AbstractRace implements MagicColors {
-    private static final int INIT_HEALTH = 100;
+    private static final int INIT_VALUE = 100;
     private static final int MIN_VALUE = 0;
 
     @Getter
@@ -22,7 +22,7 @@ public abstract class AbstractRace implements MagicColors {
     @Setter
     private String heroName;
     @Getter
-    private int health = INIT_HEALTH; // health points (hp)
+    private int health = INIT_VALUE; // health points (hp)
     @Getter
     private boolean isLeader;
 
@@ -32,11 +32,11 @@ public abstract class AbstractRace implements MagicColors {
 
     @Getter
     @Setter
-    private int mana; // manna point for spells (mp)
+    private int mana = INIT_VALUE; // manna point for spells (mp)
 
     @Getter
     @Setter
-    private int rage; // rage points (rp)
+    private int rage = INIT_VALUE; // rage points (rp)
 
     @Getter
     @Setter
@@ -93,7 +93,6 @@ public abstract class AbstractRace implements MagicColors {
 
     public void setLeader() {
         this.isLeader = true;
-//        this.heroName = YELLOW + this.heroName + RESET;
     }
 
     public void setHealth(int health) {
@@ -113,8 +112,4 @@ public abstract class AbstractRace implements MagicColors {
     public abstract Map<String, Map<String, AbstractAbility>> getSpecialAttacks();
 
     public abstract Map<String, int[]> getAttacks();
-
-    public void updateCharacteristic(int characteristic, int points) {
-
-    }
 }
