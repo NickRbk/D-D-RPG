@@ -1,59 +1,37 @@
 package cursor.rybak.model.race;
 
 import cursor.rybak.model.hero.AbstractAbility;
-import cursor.rybak.view.MagicColors;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.util.Map;
 
-public abstract class AbstractRace implements MagicColors {
-    private static final int INIT_VALUE = 100;
-    private static final int MIN_VALUE = 0;
+@Getter
+public abstract class AbstractRace implements RaceInitValues {
 
-    @Getter
-    private String[] keyToUpgrade = {"charisma", "stamina", "intellect", "agility", "concentration", "INFO"};
-
-    @Getter
+    private String[] keyToUpgrade = RaceInitValues.keyToUpgrade;
     private String race;
-    @Getter
     private String heroKind;
-    @Getter
+
     @Setter
     private String heroName;
-    @Getter
-    private double health = INIT_VALUE; // health points (hp)
-    @Getter
+
+    private double health = RaceInitValues.initValue; // health points (hp)
     private boolean isLeader;
 
-    @Getter
     @Setter
-    private double xp = 10; // skill points (xp)
+    private double xp = RaceInitValues.xp; // skill points (xp)
 
-    @Getter
-    private double mana = INIT_VALUE; // manna point for spells (mp)
-
-    @Getter
-    private double rage = INIT_VALUE; // rage points (rp)
-
-    @Getter
+    private double mana = RaceInitValues.initValue; // manna point for spells (mp)
+    private double rage = RaceInitValues.initValue; // rage points (rp)
     private int charisma;
-
-    @Getter
     private int stamina;
-
-    @Getter
     private int intellect;
-
-    @Getter
     private int agility;
-
-    @Getter
     private int concentration;
 
-    @Getter
     @Setter
-    private int level = 1;
+    private int level = RaceInitValues.level;
 
     /**
      * constructor for abstract
@@ -89,15 +67,15 @@ public abstract class AbstractRace implements MagicColors {
     }
 
     public void setHealth(int health) {
-        this.health = health < MIN_VALUE ? MIN_VALUE : health;
+        this.health = health < RaceInitValues.minValue ? RaceInitValues.minValue : health;
     }
 
     public void setMana(int mana) {
-        this.mana = mana < MIN_VALUE ? MIN_VALUE : mana;
+        this.mana = mana < RaceInitValues.minValue ? RaceInitValues.minValue : mana;
     }
 
     public void setRage(int rage) {
-        this.rage = rage < MIN_VALUE ? MIN_VALUE : rage;
+        this.rage = rage < RaceInitValues.minValue ? RaceInitValues.minValue : rage;
     }
 
     public abstract int attack();
@@ -112,11 +90,9 @@ public abstract class AbstractRace implements MagicColors {
 
         // 2% XP gain for every two points
         int remainder = charisma % 2;
-        if (remainder == 0) {
-            this.xp += 0.02 * this.xp * charisma / 2;
-        } else {
-            this.xp += 0.02 * this.xp * (charisma - remainder);
-        }
+        this.xp += remainder == 0
+                ? (0.02 * this.xp * charisma / 2)
+                : (0.02 * this.xp * (charisma - remainder));
 
         // 1 additional initiative point per 2 points
         // CODE WILL BE HERE
@@ -153,7 +129,7 @@ public abstract class AbstractRace implements MagicColors {
         // 1 rp regen per 1 turn per 1 point
         // CODE WILL BE HERE
 
-        // 1 turn cd decresion per 25 points
+        // 1 turn cd decrease per 25 points
         // CODE WILL BE HERE
     }
 }

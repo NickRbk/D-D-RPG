@@ -35,7 +35,7 @@ public class Team {
         String[] heroesName = new String[heroes.length];
 
         for (int i = 0; i < heroes.length; i++) {
-            heroesName[i] = String.format("%s (%d)", heroes[i].getHeroName(), heroes[i].getHealth());
+            heroesName[i] = String.format("%s (%.0f)", heroes[i].getHeroName(), heroes[i].getHealth());
         }
 
         return String.join(", ", heroesName);

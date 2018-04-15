@@ -1,12 +1,14 @@
-package cursor.rybak.model.enemy.kind.orkoid;
+package cursor.rybak.model.enemy.kind.orkoid.impl;
 
 import cursor.rybak.model.enemy.AbstractMonster;
+import cursor.rybak.model.enemy.kind.orkoid.Orkoids;
 
 public class Ogre extends AbstractMonster {
     private static final int[] DAMAGE_OPTIONS = {2, 10};
 
     public Ogre() {
-        super("Orkoid", "Ogre", 300, 5, 100);
+        super("Orkoid", Orkoids.Ogre.getName(), Orkoids.Ogre.getHealth(),
+                Orkoids.Ogre.getInitiative(), Orkoids.Ogre.getCost());
     }
 
     @Override

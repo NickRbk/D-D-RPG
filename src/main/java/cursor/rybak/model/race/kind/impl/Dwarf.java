@@ -1,14 +1,16 @@
-package cursor.rybak.model.race.kind;
+package cursor.rybak.model.race.kind.impl;
 
 import cursor.rybak.model.hero.AbstractAbility;
 import cursor.rybak.model.race.AbstractRace;
+import cursor.rybak.model.race.kind.Races;
 
 import java.util.Map;
 
-public class Human extends AbstractRace {
+public class Dwarf extends AbstractRace {
 
-    public Human(String heroName) {
-        super("Human", heroName, 10, 30, 20, 15, 15);
+    public Dwarf(String heroName) {
+        super("Dwarf", heroName, Races.Dwarf.getCharisma(), Races.Dwarf.getStamina(), Races.Dwarf.getIntellect(),
+                Races.Dwarf.getAgility(), Races.Dwarf.getConcentration());
     }
 
     /**

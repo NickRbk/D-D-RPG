@@ -1,12 +1,15 @@
-package cursor.rybak.model.enemy.kind.creature;
+package cursor.rybak.model.enemy.kind.creature.impl;
 
 import cursor.rybak.model.enemy.AbstractMonster;
+import cursor.rybak.model.enemy.kind.creature.Creatures;
 
 public class BlackDragon extends AbstractMonster {
     private static final int[] DAMAGE_OPTIONS = {3, 10};
 
     public BlackDragon() {
-        super("Creature", "Black Dragon", 400, 50, 500);
+        super("Creature", Creatures.BlackDragon.getName(), Creatures.BlackDragon.getHealth(),
+                Creatures.BlackDragon.getInitiative(), Creatures.BlackDragon.getCost());
+
         this.setSpellImmune(true);
     }
 

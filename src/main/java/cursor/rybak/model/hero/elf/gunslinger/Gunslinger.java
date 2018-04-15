@@ -2,7 +2,7 @@ package cursor.rybak.model.hero.elf.gunslinger;
 
 import cursor.rybak.model.hero.AbstractAbility;
 import cursor.rybak.model.hero.elf.gunslinger.abilities.map.GunslingerAbilitiesMap;
-import cursor.rybak.model.race.kind.Elf;
+import cursor.rybak.model.race.kind.impl.Elf;
 import lombok.Getter;
 
 import java.util.Map;

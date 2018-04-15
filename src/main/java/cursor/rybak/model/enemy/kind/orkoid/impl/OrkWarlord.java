@@ -1,12 +1,14 @@
-package cursor.rybak.model.enemy.kind.orkoid;
+package cursor.rybak.model.enemy.kind.orkoid.impl;
 
 import cursor.rybak.model.enemy.AbstractMonster;
+import cursor.rybak.model.enemy.kind.orkoid.Orkoids;
 
 public class OrkWarlord extends AbstractMonster {
     private static final int[] DAMAGE_OPTIONS = {2, 6};
 
     public OrkWarlord() {
-        super("Orkoid", "Ork Warlord", 150, 50, 40);
+        super("Orkoid", Orkoids.OrkWarlord.getName(), Orkoids.OrkWarlord.getHealth(),
+                Orkoids.OrkWarlord.getInitiative(), Orkoids.OrkWarlord.getCost());
     }
 
     @Override

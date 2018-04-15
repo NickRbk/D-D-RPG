@@ -1,12 +1,14 @@
-package cursor.rybak.model.enemy.kind.orkoid;
+package cursor.rybak.model.enemy.kind.orkoid.impl;
 
 import cursor.rybak.model.enemy.AbstractMonster;
+import cursor.rybak.model.enemy.kind.orkoid.Orkoids;
 
 public class UnstableAlchemist extends AbstractMonster {
     private static final int[] DAMAGE_OPTIONS = {0, 100};
 
     public UnstableAlchemist() {
-        super("Orkoid", "Unstable Alchemist", 15, 25, 5);
+        super("Orkoid", Orkoids.UnstableAlchemist.getName(), Orkoids.UnstableAlchemist.getHealth(),
+                Orkoids.UnstableAlchemist.getInitiative(), Orkoids.UnstableAlchemist.getCost());
     }
 
     @Override

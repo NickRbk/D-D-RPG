@@ -119,7 +119,7 @@ public class UserInteraction {
 
 
     /**
-     * * ask about team members (can be from different races)
+     * ask about team members (can be from different races)
      *
      * @param teamMembers heroes number in team
      * @return array of heroes

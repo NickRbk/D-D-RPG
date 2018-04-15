@@ -17,7 +17,7 @@ public class Message implements MagicColors {
         System.out.println(CYAN + "\n\tHello player, start game!\n" + RESET);
 
         System.out.format("\t%sIn this one you will create a Team with 3 heroes\n" +
-                "\tOne of them is Leader and determinates order of moves\n" +
+                "\tOne of them is Leader and determinate order of moves\n" +
                 "\tOur Team will fight against monsters in some fabulous location...\n" +
                 "\tNow you need some preparations... Ready to start? Go!%s\n\n", CYAN, RESET);
     }
@@ -48,7 +48,7 @@ public class Message implements MagicColors {
                 "\t5) CONCENTRATION\n" +
                 "\t\t| per additional 1 concentration point hero gain 2hp and 1.5mp\n" +
                 "\t\t| 1rp regen per turn per 1 point\n" +
-                "\t\t| 1 turn cd decresion per 25 points" + RESET + "\n\n");
+                "\t\t| 1 turn cd decrease per 25 points" + RESET + "\n\n");
     }
 
 
@@ -136,12 +136,13 @@ public class Message implements MagicColors {
 
 
     /**
-     * heper method, convert options from String[] to String and print
+     * helper method, convert options from String[] to String and print
      *
      * @param options String[] of options
      */
     private static void printOptions(String[] options) {
-        System.out.format("[%s] -> ", String.join(", ", options));
+        System.out.format("[%s] -> ",
+                String.join(", ", options));
     }
 
 
@@ -228,7 +229,8 @@ public class Message implements MagicColors {
      * divider in table about Team
      */
     private static void printTeamTableDivider() {
-        System.out.format("+----------------------+----------------------+----------------------+----------------------+%n");
+        System.out.format("+----------------------+----------------------+----------------------" +
+                "+----------------------+%n");
     }
 
 
