@@ -1,7 +1,6 @@
 package cursor.rybak.view;
 
 import cursor.rybak.model.race.AbstractRace;
-import cursor.rybak.model.team.Team;
 import cursor.rybak.store.RaceMap;
 
 import java.util.Map;
@@ -9,48 +8,6 @@ import java.util.Set;
 
 public class Message implements MagicColors {
     private static Map<String, Map<String, AbstractRace>> raceMap = RaceMap.getRace();
-
-    /**
-     * welcome message
-     */
-    public static void welcomeInfo() {
-        System.out.println(CYAN + "\n\tHello player, start game!\n" + RESET);
-
-        System.out.format("\t%sIn this one you will create a Team with 3 heroes\n" +
-                "\tOne of them is Leader and determinate order of moves\n" +
-                "\tOur Team will fight against monsters in some fabulous location...\n" +
-                "\tNow you need some preparations... Ready to start? Go!%s\n\n", CYAN, RESET);
-    }
-
-
-    /**
-     * print info about different hero's characteristics
-     */
-    public static void characteristicsInfo() {
-        System.out.print(CYAN + "\n\tEach hero has basic characteristics as: \n" +
-                "\t1) CHARISMA\n" +
-                "\t\t| per additional 2 charisma points hero gain 1 initiative point\n" +
-                "\t\t| > 40 allows hero to fear enemies (75% chance per 2 points)\n" +
-                "\t\t| 2% XP gain per 2 points\n" +
-
-                "\t2) STAMINA\n" +
-                "\t\t| per additional 1 stamina point hero gain 2 health points (hp)\n" +
-                "\t\t| 0.25hp regen per 1 point\n" +
-
-                "\t3) INTELLECT\n" +
-                "\t\t| per additional 1 intellect point hero gain 2 mana points (mp)\n" +
-                "\t\t| 0.25mp regen per 1 point\n" +
-
-                "\t4) AGILITY\n" +
-                "\t\t| per additional 1 agility point hero gain 4 rage points (rp)\n" +
-                "\t\t| chance to avoid hit 1% per 2 points\n" +
-
-                "\t5) CONCENTRATION\n" +
-                "\t\t| per additional 1 concentration point hero gain 2hp and 1.5mp\n" +
-                "\t\t| 1rp regen per turn per 1 point\n" +
-                "\t\t| 1 turn cd decrease per 25 points" + RESET + "\n\n");
-    }
-
 
     /**
      * message to ask name for something
@@ -79,16 +36,6 @@ public class Message implements MagicColors {
      */
     public static void askMoreHero(int currentIndex, int lastIndex) {
         System.out.format("\n\t%s... needs more heroes (%d | %d)%s\n", PURPLE, currentIndex, lastIndex, RESET);
-    }
-
-
-    /**
-     * message to ask game mode (for advance edition)
-     *
-     * @param options mode options (in string)
-     */
-    public static void askGameMode(String options) {
-        System.out.print(BLUE + "\n\tChoose GAME MODE -> " + RESET + "[" + options + "]: ");
     }
 
 
@@ -195,143 +142,5 @@ public class Message implements MagicColors {
      */
     public static void printRemainedInfo(int remainedPoints) {
         System.out.format("%s| You have %d points left |%s ", RED, remainedPoints, RESET);
-    }
-
-
-    /**
-     * print info about Team
-     *
-     * @param team instance of Team
-     */
-    public static void printTeamInfo(Team team) {
-        String leftAlignFormat = "| %-20s | %-20s | %-20s | %-20s |%n";
-        System.out.println(CYAN + "\n\tTeam: " + team.getName() + RESET);
-        printTeamTableHeader(leftAlignFormat, team.getHeroes());
-        printTeamMemberInfo(leftAlignFormat, team.getHeroes());
-    }
-
-
-    /**
-     * print header for table about Team
-     *
-     * @param format special format String
-     * @param hero   array of heroes
-     */
-    private static void printTeamTableHeader(String format, AbstractRace[] hero) {
-        printTeamTableDivider();
-        System.out.format(format, "Characteristic\\Hero",
-                hero[0].getHeroName() + " (L)", hero[1].getHeroName(), hero[2].getHeroName());
-        printTeamTableDivider();
-    }
-
-
-    /**
-     * divider in table about Team
-     */
-    private static void printTeamTableDivider() {
-        System.out.format("+----------------------+----------------------+----------------------" +
-                "+----------------------+%n");
-    }
-
-
-    /**
-     * print info about Team members
-     *
-     * @param format special format String
-     * @param hero   array of heroes
-     */
-    private static void printTeamMemberInfo(String format, AbstractRace[] hero) {
-
-        printHeroesVitalCharacteristic(format, hero);
-        printTeamTableDivider();
-
-        printHeroesCharacteristic(format, hero);
-        printTeamTableDivider();
-    }
-
-
-    /**
-     * print info about vital characteristics of Team's heroes (Part #1)
-     * (such as Profession, Health, Mana, Rage)
-     *
-     * @param format special format String
-     * @param hero   array of heroes
-     */
-    private static void printHeroesVitalCharacteristic(String format, AbstractRace[] hero) {
-        String doubleFormat = "| %-20s | %-20.2f | %-20.2f | %-20.2f |%n";
-
-        System.out.format(format, "Profession",
-                hero[0].getHeroKind() + "  (" + hero[0].getRace() + ")",
-                hero[1].getHeroKind() + "  (" + hero[1].getRace() + ")",
-                hero[2].getHeroKind() + "  (" + hero[2].getRace() + ")"
-        );
-
-        System.out.format(format, "Level",
-                hero[0].getLevel(), hero[1].getLevel(), hero[2].getLevel());
-
-        System.out.format(doubleFormat, "XP",
-                hero[0].getXp(), hero[1].getXp(), hero[2].getXp());
-
-        printTeamTableDivider();
-
-        System.out.format(doubleFormat, "Health",
-                hero[0].getHealth(), hero[1].getHealth(), hero[2].getHealth());
-
-        System.out.format(doubleFormat, "Mana",
-                hero[0].getMana(), hero[1].getMana(), hero[2].getMana());
-
-        System.out.format(doubleFormat, "Rage",
-                hero[0].getRage(), hero[1].getRage(), hero[2].getRage());
-    }
-
-
-    /**
-     * print info about characteristics of Team's heroes (Part #2)
-     * (such as Charisma, Stamina, Intellect, Agility, Concentration)
-     *
-     * @param format special format String
-     * @param hero   special format String
-     */
-    private static void printHeroesCharacteristic(String format, AbstractRace[] hero) {
-        System.out.format(format, "Charisma",
-                hero[0].getCharisma(), hero[1].getCharisma(), hero[2].getCharisma());
-
-        System.out.format(format, "Stamina",
-                hero[0].getStamina(), hero[1].getStamina(), hero[2].getStamina());
-
-        System.out.format(format, "Intellect",
-                hero[0].getIntellect(), hero[1].getIntellect(), hero[2].getIntellect());
-
-        System.out.format(format, "Agility",
-                hero[0].getAgility(), hero[1].getAgility(), hero[2].getAgility());
-
-        System.out.format(format, "Concentration",
-                hero[0].getConcentration(), hero[1].getConcentration(), hero[2].getConcentration());
-    }
-
-
-    /**
-     * error info if user choose item not from list
-     */
-    public static void errorInfo() {
-        System.out.print(RED + "\tSorry, you need to choose from list above: " + RESET);
-    }
-
-
-    /**
-     * error info if input field is empty
-     */
-    public static void errorEmptyInput() {
-        System.out.print(RED + "\tSorry, your field empty :( " + RESET);
-    }
-
-
-    /**
-     * error that user input is out of bound
-     *
-     * @param points maximum option can be chosen
-     */
-    public static void errorOutOfBound(int points) {
-        System.out.format("\t%sSorry, you need to choose from range [1:%d]:%s ", RED, points, RESET);
     }
 }

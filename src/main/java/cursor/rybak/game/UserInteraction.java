@@ -2,6 +2,8 @@ package cursor.rybak.game;
 
 import cursor.rybak.model.race.AbstractRace;
 import cursor.rybak.store.RaceMap;
+import cursor.rybak.view.ErrorMessage;
+import cursor.rybak.view.GeneralMessage;
 import cursor.rybak.view.Message;
 
 import java.util.ArrayList;
@@ -27,7 +29,7 @@ public class UserInteraction {
             if (!userInput.isEmpty()) {
                 return userInput;
             }
-            Message.errorEmptyInput();
+            ErrorMessage.errorEmptyInput();
         }
     }
 
@@ -51,7 +53,7 @@ public class UserInteraction {
                 }
             }
 
-            Message.errorInfo();
+            ErrorMessage.errorInfo();
         }
     }
 
@@ -93,28 +95,6 @@ public class UserInteraction {
         Message.printChosenOption(heroes[option]);
 
         return heroesMap.get(heroes[option]);
-    }
-
-
-    /**
-     * ask about game mode (for maze edition)
-     *
-     * @return game mode
-     */
-    public static String askGameMode() {
-        String[] options = {"easy", "medium", "hard"};
-        Message.askGameMode(String.join(", ", options));
-
-        while (true) {
-            String userInput = in.nextLine().toUpperCase().trim();
-
-            for (Mode mode : Mode.values()) {
-                if (userInput.equals(mode.name())) {
-                    return userInput;
-                }
-            }
-            Message.errorInfo();
-        }
     }
 
 
@@ -197,7 +177,7 @@ public class UserInteraction {
             option = chooseOption(options);
 
             if ("INFO".equals(options[option])) {
-                Message.characteristicsInfo();
+                GeneralMessage.characteristicsInfo();
             }
         } while ("INFO".equals(options[option]));
 
@@ -231,7 +211,7 @@ public class UserInteraction {
                 return remainedPoints;
 
             } else {
-                Message.errorOutOfBound(remainedPoints);
+                ErrorMessage.errorOutOfBound(remainedPoints);
             }
         }
     }

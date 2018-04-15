@@ -5,6 +5,6 @@ public interface CalcConst {
     double regenHPCoefficientPerStamina = 0.25;
     double regenMPCoefficientPerIntellect = 0.25;
     double increaseMPCoefficientPerConcentration = 1.5;
-    double increaseHPCoeficientPerConcentration = 2;
+    double increaseHPCoefficientPerConcentration = 2;
 
 }

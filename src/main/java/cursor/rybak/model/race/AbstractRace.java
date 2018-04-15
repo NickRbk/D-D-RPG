@@ -123,7 +123,7 @@ public abstract class AbstractRace implements RaceInitValues, CalcConst {
 
     public void setConcentration(int concentration) {
         this.concentration += concentration;
-        this.health += increaseHPCoeficientPerConcentration * concentration;
+        this.health += increaseHPCoefficientPerConcentration * concentration;
         this.mana += increaseMPCoefficientPerConcentration * concentration;
 
         // 1 rp regen per 1 turn per 1 point
