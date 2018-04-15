@@ -196,10 +196,10 @@ public class UserInteraction {
 
             option = chooseOption(options);
 
-            if (options[option].equals("INFO")) {
+            if ("INFO".equals(options[option])) {
                 Message.characteristicsInfo();
             }
-        } while (options[option].equals("INFO"));
+        } while ("INFO".equals(options[option]));
 
         Message.printChosenOption(options[option]);
         return options[option];
@@ -271,6 +271,8 @@ public class UserInteraction {
                 break;
             case "concentration":
                 hero.setConcentration(points);
+                break;
+            default:
                 break;
         }
     }

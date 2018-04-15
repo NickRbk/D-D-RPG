@@ -7,7 +7,7 @@ import lombok.Setter;
 import java.util.Map;
 
 @Getter
-public abstract class AbstractRace implements RaceInitValues {
+public abstract class AbstractRace implements RaceInitValues, CalcConst {
 
     private String[] keyToUpgrade = RaceInitValues.keyToUpgrade;
     private String race;
@@ -91,8 +91,8 @@ public abstract class AbstractRace implements RaceInitValues {
         // 2% XP gain for every two points
         int remainder = charisma % 2;
         this.xp += remainder == 0
-                ? (0.02 * this.xp * charisma / 2)
-                : (0.02 * this.xp * (charisma - remainder));
+                ? (increaseXPCoefficientPerCharisma * this.xp * charisma / 2)
+                : (increaseXPCoefficientPerCharisma * this.xp * (charisma - remainder));
 
         // 1 additional initiative point per 2 points
         // CODE WILL BE HERE
@@ -105,12 +105,12 @@ public abstract class AbstractRace implements RaceInitValues {
 
     public void setStamina(int stamina) {
         this.stamina += stamina;
-        this.health += 2 * stamina + 0.25 * this.health;
+        this.health += 2 * stamina + regenHPCoefficientPerStamina * this.health;
     }
 
     public void setIntellect(int intellect) {
         this.intellect += intellect;
-        this.mana += 2 * intellect + 0.25 * this.mana;
+        this.mana += 2 * intellect + regenMPCoefficientPerIntellect * this.mana;
     }
 
     public void setAgility(int agility) {
@@ -123,8 +123,8 @@ public abstract class AbstractRace implements RaceInitValues {
 
     public void setConcentration(int concentration) {
         this.concentration += concentration;
-        this.health += 2 * concentration;
-        this.mana += 1.5 * concentration;
+        this.health += increaseHPCoeficientPerConcentration * concentration;
+        this.mana += increaseMPCoefficientPerConcentration * concentration;
 
         // 1 rp regen per 1 turn per 1 point
         // CODE WILL BE HERE
