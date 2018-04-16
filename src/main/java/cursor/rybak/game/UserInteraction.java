@@ -229,7 +229,7 @@ public class UserInteraction {
 
 
     /**
-     * upgrade particular characteristic (in switch)
+     * upgrade particular characteristic
      *
      * @param characteristic concrete key needs to upgrade
      * @param hero           instance of particular hero
