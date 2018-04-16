@@ -152,7 +152,7 @@ public class UserInteraction {
         Message.printDistributionIntro(remainedPoints);
 
         while (remainedPoints > 0) {
-            String characteristic = askKeyToUpgrade(hero.getKeyToUpgrade());
+            String characteristic = askKeyToUpgrade(hero.keyToUpgrade);
 
             Message.printRemainedPoints(remainedPoints);
 

@@ -9,7 +9,6 @@ import java.util.Map;
 @Getter
 public abstract class AbstractRace implements RaceInitValues, CalcConst {
 
-    private String[] keyToUpgrade = RaceInitValues.keyToUpgrade;
     private String race;
     private String heroKind;
 
