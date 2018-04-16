@@ -236,25 +236,11 @@ public class UserInteraction {
      * @param points         upgrade points
      */
     private static void upgradeCharacteristic(String characteristic, AbstractRace hero, int points) {
-        switch (characteristic) {
-            case "charisma":
-                hero.setCharisma(points);
-                break;
-            case "stamina":
-                hero.setStamina(points);
-                break;
-            case "intellect":
-                hero.setIntellect(points);
-                break;
-            case "agility":
-                hero.setAgility(points);
-                break;
-            case "concentration":
-                hero.setConcentration(points);
-                break;
-            default:
-                break;
-        }
+        if("charisma".equals(characteristic)) hero.setCharisma(points);
+        if("stamina".equals(characteristic)) hero.setStamina(points);
+        if("intellect".equals(characteristic)) hero.setIntellect(points);
+        if("agility".equals(characteristic)) hero.setAgility(points);
+        if("concentration".equals(characteristic)) hero.setConcentration(points);
     }
 
 

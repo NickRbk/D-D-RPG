@@ -15,7 +15,7 @@ public class Message implements MagicColors {
      * @param item something for which ask question
      */
     public static void askName(String item) {
-        System.out.format("%sChoose %s: %s", BLUE, item, RESET);
+        System.out.format("%sEnter %s: %s", BLUE, item, RESET);
     }
 
 
