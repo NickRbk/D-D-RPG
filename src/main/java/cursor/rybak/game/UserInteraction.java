@@ -59,6 +59,28 @@ public class UserInteraction {
 
 
     /**
+     * ask about game mode (for maze edition)
+     *
+     * @return game mode
+     */
+    public static String askGameMode() {
+        String[] options = {"easy", "medium", "hard"};
+        Message.askGameMode(String.join(", ", options));
+
+        while (true) {
+            String userInput = in.nextLine().toUpperCase().trim();
+
+            for (Mode mode : Mode.values()) {
+                if (userInput.equals(mode.name())) {
+                    return userInput;
+                }
+            }
+            ErrorMessage.errorInfo();
+        }
+    }
+
+
+    /**
      * ask about race for heroes
      *
      * @return name of race
