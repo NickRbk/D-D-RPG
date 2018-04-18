@@ -18,6 +18,10 @@ public class Game {
 
         Team team = new Team(teamName);
         TeamMessage.printTeamInfo(team);
+
+        String gameMode = UserInteraction.askGameMode();
+
+        enterToMaze(team, gameMode);
     }
 
     private static void throwTeamOnLocation(AbstractMaze maze, Team team) {
