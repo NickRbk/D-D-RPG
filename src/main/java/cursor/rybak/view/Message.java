@@ -40,6 +40,16 @@ public class Message implements MagicColors {
 
 
     /**
+     * message to ask game mode (for advance edition)
+     *
+     * @param options mode options (in string)
+     */
+    public static void askGameMode(String options) {
+        System.out.print(BLUE + "\n\tChoose GAME MODE -> " + RESET + "[" + options + "]: ");
+    }
+
+
+    /**
      * print options to choose race
      */
     public static void printRaces() {
