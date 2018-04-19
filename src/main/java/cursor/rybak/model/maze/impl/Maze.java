@@ -20,10 +20,20 @@ public class Maze extends AbstractMaze {
      * @param height count of rows
      */
     private void generate(int width, int height) {
-        this.maze = new int[width][height];
+        maze = new int[width][height];
         ArrayList<int[]> walls = new ArrayList<>();
-
         Random random = new Random();
+
+        int initX = random.nextInt(width - width / 2);
+        int initY = 1 +random.nextInt(height - height / 2);
+
+
+        maze[initX][initY] = PATH;
+        maze[initX+1][initY] = PATH;
+        maze[initX+1][initY-1] = PATH;
+        maze[initX+2][initY] = PATH;
+
+
         walls.add(randomStartPoint(random));
 
         // this whole construction is a Prim's algorithm
@@ -47,6 +57,10 @@ public class Maze extends AbstractMaze {
                     walls.add(new int[]{x, y + 1, x, y + 2});
             }
         }
+
+        maze[initX+1][initY] = TEAM;
+
+        this.setTeamStartPoint(new int[]{initX+1, initY});
     }
 
     /**

@@ -2,6 +2,7 @@ package cursor.rybak.model.maze;
 
 import cursor.rybak.view.MagicColors;
 import lombok.Getter;
+import lombok.Setter;
 
 public abstract class AbstractMaze implements MagicColors {
     // define constants value for wall, path,
@@ -27,6 +28,10 @@ public abstract class AbstractMaze implements MagicColors {
     // 2 dimension array of our maze
     @Getter
     protected int[][] maze;
+
+    @Getter
+    @Setter
+    private int[] teamStartPoint;
 
     public AbstractMaze(int width, int height) {
         this.width = width;
