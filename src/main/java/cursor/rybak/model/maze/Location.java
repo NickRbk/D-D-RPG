@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.LinkedList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -17,14 +18,14 @@ public class Location {
      * a main line (move straight and back)
      * vertical line
      */
-    private LinkedList<Location> lineA = new LinkedList<>();
+    private List<Location> lineA = new LinkedList<>();
     private int currentLocationOnLineA;
 
     /**
      * a cross line (move left and back)
      * horizontal line
      */
-    private LinkedList<Location> lineB = new LinkedList<>();
+    private List<Location> lineB = new LinkedList<>();
     private int currentLocationOnLineB;
 
 

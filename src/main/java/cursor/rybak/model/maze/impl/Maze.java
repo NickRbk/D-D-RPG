@@ -4,6 +4,7 @@ import cursor.rybak.model.maze.AbstractMaze;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import java.util.Random;
 
 public class Maze extends AbstractMaze {
@@ -21,7 +22,7 @@ public class Maze extends AbstractMaze {
      */
     private void generate(int width, int height) {
         maze = new int[width][height];
-        ArrayList<int[]> walls = new ArrayList<>();
+        List<int[]> walls = new ArrayList<>();
         Random random = new Random();
 
         int initX = random.nextInt(width - width / 2);

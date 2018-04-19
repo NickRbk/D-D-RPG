@@ -25,6 +25,15 @@ public class Game {
 
         Location startLocation = MazeSetUp.enterToMaze(team, gameMode);
         System.out.println(startLocation.getTeam());
+
+
+        System.out.println("Line A\n");
+        startLocation.getLineA().forEach(l -> System.out.println(l.getCoordinates()));
+
+
+        System.out.println("Line B\n");
+        startLocation.getLineB().forEach(l -> System.out.println(l.getCoordinates()));
+
         System.out.println(startLocation.getLineA().size());
         System.out.println(startLocation.getLineB().size());
     }

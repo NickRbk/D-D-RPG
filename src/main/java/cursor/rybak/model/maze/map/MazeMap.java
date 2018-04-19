@@ -4,6 +4,7 @@ import cursor.rybak.model.maze.Location;
 
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 
 public class MazeMap {
@@ -47,10 +48,10 @@ public class MazeMap {
      * @return map of all horizontal lines
      * (in our app it's LineB)
      */
-    public static Map<String, LinkedList<Location>> getLinesB(int[][] maze,
-                                                              Map<String, Location> mazeMap) {
+    public static Map<String, List<Location>> getLinesB(int[][] maze,
+                                                        Map<String, Location> mazeMap) {
 
-        Map<String, LinkedList<Location>> linesAMap = new HashMap<>();
+        Map<String, List<Location>> linesAMap = new HashMap<>();
 
         int width = maze.length;
         int height = maze[0].length;
@@ -58,7 +59,7 @@ public class MazeMap {
         for (int row = 0; row < height; row++) {
 
             StringBuilder keys = new StringBuilder();
-            LinkedList<Location> lineA = new LinkedList<>();
+            List<Location> lineA = new LinkedList<>();
 
             int counterA = 0;
 
@@ -104,10 +105,10 @@ public class MazeMap {
      * @return map of all vertical lines
      * (in our app it's LineA)
      */
-    public static Map<String, LinkedList<Location>> getLinesA(int[][] maze,
+    public static Map<String, List<Location>> getLinesA(int[][] maze,
                                                               Map<String, Location> mazeMap) {
 
-        Map<String, LinkedList<Location>> linesBMap = new HashMap<>();
+        Map<String, List<Location>> linesBMap = new HashMap<>();
 
         int width = maze.length;
         int height = maze[0].length;
@@ -115,11 +116,11 @@ public class MazeMap {
         for (int col = 0; col < width; col++) {
 
             StringBuilder keys = new StringBuilder();
-            LinkedList<Location> lineB = new LinkedList<>();
+            List<Location> lineB = new LinkedList<>();
 
             int counterB = 0;
 
-            for (int row = 0; row < height; row++) {
+            for (int row = height - 1; row >= 0; row--) {
 
 
                 if (maze[col][row] != 0) {
@@ -137,7 +138,7 @@ public class MazeMap {
                     keys = new StringBuilder();
                 }
 
-                if (row == height - 1) {
+                if (row == 0) {
                     if (counterB > 1) {
                         linesBMap.put(keys.toString(), lineB);
                     }
@@ -160,13 +161,13 @@ public class MazeMap {
      * @param col     column in maze[][]
      * @param row     row in maze[][]
      * @param keys    StringBuilder to create general key
-     * @param line    LinkedList of current line
+     * @param line    List of current line
      * @param mazeMap map of our maze
      */
     private static void addToLineLocation(int col,
                                           int row,
                                           StringBuilder keys,
-                                          LinkedList<Location> line,
+                                          List<Location> line,
                                           Map<String, Location> mazeMap) {
 
         String key = generateLocationMapKey(col, row);

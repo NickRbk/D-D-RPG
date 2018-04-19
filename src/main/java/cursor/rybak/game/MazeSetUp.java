@@ -7,6 +7,7 @@ import cursor.rybak.model.maze.map.MazeMap;
 import cursor.rybak.model.team.Team;
 
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 
 public class MazeSetUp {
@@ -65,35 +66,44 @@ public class MazeSetUp {
         Map<String, Location> mazeMap = MazeMap.getMazeMap(maze.getMaze());
 
         // prepared map with lines (vertical & horizontal)
-        Map<String, LinkedList<Location>> LinesA = MazeMap.getLinesA(maze.getMaze(), mazeMap);
-        Map<String, LinkedList<Location>> LinesB = MazeMap.getLinesB(maze.getMaze(), mazeMap);
+        Map<String, List<Location>> LinesA = MazeMap.getLinesA(maze.getMaze(), mazeMap);
+        Map<String, List<Location>> LinesB = MazeMap.getLinesB(maze.getMaze(), mazeMap);
 
 
         mazeMap.forEach((keyLocation, location) -> {
 
             LinesA.forEach((keyLine, lineA) -> {
                 if(keyLine.contains(";" + keyLocation + ";")) {
-                    location.setLineA( lineA );
+                    location.setLineA( listOfNeighbors(lineA, location) );
                 }
             });
 
             LinesB.forEach((keyLine, lineB) -> {
                 if(keyLine.contains(";" + keyLocation + ";")) {
-                    location.setLineB( lineB );
+                    location.setLineB( listOfNeighbors(lineB, location) );
                 }
             });
 
         });
 
         return mazeMap;
+    }
 
-//        System.out.println("All rooms: " + mazeMap.size());
-//        System.out.println("All horizontal lines (LinesB): " + getLinesB.size());
-//
-//        getLinesB.keySet().forEach(System.out::println);
-//
-//        System.out.println("All vertical lines (LinesA): " + getLinesA.size());
-//
-//        getLinesA.keySet().forEach(System.out::println);
+
+    /**
+     * retrieve from full path only our concrete location
+     * and its neighbors
+     *
+     * @param fullPath full line
+     * @param location certain location
+     * @return list of adjacent fields
+     */
+    private static List<Location> listOfNeighbors(List<Location> fullPath, Location location ) {
+        int locationIndex = fullPath.indexOf(location);
+
+        int startIndex = locationIndex == 0 ? locationIndex : locationIndex - 1;
+        int lastIndex = locationIndex + 2 > fullPath.size() ? fullPath.size() : locationIndex + 2;
+
+        return fullPath.subList(startIndex, lastIndex);
     }
 }
