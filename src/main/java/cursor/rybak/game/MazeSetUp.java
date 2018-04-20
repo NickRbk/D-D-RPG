@@ -7,7 +7,6 @@ import cursor.rybak.model.maze.impl.Maze;
 import cursor.rybak.model.maze.map.MazeMap;
 import cursor.rybak.model.team.Team;
 
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -28,6 +27,14 @@ public class MazeSetUp {
 //        }
     }
 
+
+    /**
+     * Initialize maze and all locations in it
+     *
+     * @param team     team
+     * @param gameMode game mode
+     * @return start location
+     */
     public static Location enterToMaze(Team team, String gameMode) {
         AbstractMaze maze = new Maze(Mode.valueOf(gameMode).getWidth(), Mode.valueOf(gameMode).getHeight());
         Map<String, Location> mazeMap = generateGameLocations(maze);
@@ -39,6 +46,14 @@ public class MazeSetUp {
     }
 
 
+    /**
+     * Initialize game start location
+     *
+     * @param mazeMap map maze
+     * @param maze    maze instance
+     * @param team    team
+     * @return start location
+     */
     private static Location initStartLocation(Map<String, Location> mazeMap,
                                               AbstractMaze maze,
                                               Team team) {
@@ -69,6 +84,7 @@ public class MazeSetUp {
 
     /**
      * Generate location abstraction
+     *
      * @param maze maze class
      * @return maze map
      */
@@ -84,20 +100,33 @@ public class MazeSetUp {
         mazeMap.forEach((keyLocation, location) -> {
 
             LinesA.forEach((keyLine, lineA) -> {
-                if(keyLine.contains(";" + keyLocation + ";")) {
-                    location.setLineA( listOfNeighbors(lineA, location) );
+                if (keyLine.contains(";" + keyLocation + ";")) {
+                    location.setLineA(listOfNeighbors(lineA, location));
                 }
             });
 
             LinesB.forEach((keyLine, lineB) -> {
-                if(keyLine.contains(";" + keyLocation + ";")) {
-                    location.setLineB( listOfNeighbors(lineB, location) );
+                if (keyLine.contains(";" + keyLocation + ";")) {
+                    location.setLineB(listOfNeighbors(lineB, location));
                 }
             });
 
+            location.setDescription(getLocationDescription());
         });
 
         return mazeMap;
+    }
+
+
+    /**
+     * Choose description from enum randomly
+     *
+     * @return location description
+     */
+    private static String getLocationDescription() {
+        int index = (int) Math.round(Math.random() * 19);
+
+        return LocationsDescription.valueOf("LOCATION" + index).getDescription();
     }
 
 
@@ -109,7 +138,7 @@ public class MazeSetUp {
      * @param location certain location
      * @return list of adjacent fields
      */
-    private static List<Location> listOfNeighbors(List<Location> fullPath, Location location ) {
+    private static List<Location> listOfNeighbors(List<Location> fullPath, Location location) {
         int locationIndex = fullPath.indexOf(location);
 
         int startIndex = locationIndex == 0 ? locationIndex : locationIndex - 1;

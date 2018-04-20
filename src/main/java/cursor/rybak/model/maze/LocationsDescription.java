@@ -1,6 +1,5 @@
 package cursor.rybak.model.maze;
 
-import com.sun.org.apache.regexp.internal.RE;
 import cursor.rybak.view.MagicColors;
 import lombok.Getter;
 
