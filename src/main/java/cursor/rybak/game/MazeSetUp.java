@@ -38,11 +38,10 @@ public class MazeSetUp {
     public static Location enterToMaze(Team team, String gameMode) {
         AbstractMaze maze = new Maze(Mode.valueOf(gameMode).getWidth(), Mode.valueOf(gameMode).getHeight());
         Map<String, Location> mazeMap = generateGameLocations(maze);
-        Location startLocation = initStartLocation(mazeMap, maze, team);
 
         maze.print();
 
-        return startLocation;
+        return initStartLocation(mazeMap, maze, team);
     }
 
 
@@ -64,6 +63,8 @@ public class MazeSetUp {
 
         startLocation.setTeam(team);
         startLocation.setDescription(LocationsDescription.START_POINT.getDescription());
+        startLocation.setMainLine( startLocation.getLineA() );
+        startLocation.setCrossLine( startLocation.getLineB() );
 
         return startLocation;
     }

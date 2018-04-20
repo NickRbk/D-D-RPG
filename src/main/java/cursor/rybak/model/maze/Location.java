@@ -14,23 +14,31 @@ public class Location {
     private String coordinates;
     private Team team;
     private String description;
+    private List<Location> mainLine = new LinkedList<>();
+    private List<Location> crossLine = new LinkedList<>();
+    private boolean isObjective = false;
 
     /**
      * a main line (move straight and back)
      * vertical line
      */
     private List<Location> lineA = new LinkedList<>();
-    private int currentLocationOnLineA;
+//    private int currentLocationOnLineA;
 
     /**
      * a cross line (move left and back)
      * horizontal line
      */
     private List<Location> lineB = new LinkedList<>();
-    private int currentLocationOnLineB;
+//    private int currentLocationOnLineB;
 
 
     public Location(String coordinates) {
         this.coordinates = coordinates;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("\n\tRoom #%s\n%s", coordinates, description);
     }
 }

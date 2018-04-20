@@ -1,18 +1,14 @@
 package cursor.rybak.game;
 
-import cursor.rybak.model.maze.AbstractMaze;
+import cursor.rybak.model.team.MoveConst;
 import cursor.rybak.model.maze.Location;
-import cursor.rybak.model.maze.impl.Maze;
-import cursor.rybak.model.maze.map.MazeMap;
 import cursor.rybak.model.team.Team;
 import cursor.rybak.view.GeneralMessage;
 import cursor.rybak.view.TeamMessage;
 
-import java.lang.reflect.Array;
-import java.util.LinkedList;
-import java.util.Map;
+import java.util.List;
 
-public class Game {
+public class Game implements MoveConst {
     public static void start() {
         GeneralMessage.welcomeInfo();
 
@@ -23,9 +19,15 @@ public class Game {
 
         String gameMode = UserInteraction.askGameMode();
 
-        Location startLocation = MazeSetUp.enterToMaze(team, gameMode);
+        Location currentLocation = MazeSetUp.enterToMaze(team, gameMode);
 
-        System.out.println(startLocation.getDescription());
+        while(!currentLocation.isObjective()) {
+            System.out.println(currentLocation);
+
+            String moveOption = UserInteraction.chooseMoveOption( currentLocation );
+
+            currentLocation = team.move(currentLocation, moveOption);
+        }
 
 //        System.out.println(startLocation.getTeam());
 //

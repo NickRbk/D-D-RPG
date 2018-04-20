@@ -6,7 +6,7 @@ import lombok.Getter;
 @Getter
 public enum LocationsDescription implements MagicColors {
 
-    START_POINT(CYAN + "\n\tYou're in Game, welcome! It's dark around... but doesn't matter.\n" +
+    START_POINT(CYAN + "\tYou're in Game, welcome! It's dark around... but doesn't matter.\n" +
             "\tYou must know only a few things... here live monsters and\n" +
             "\tyou run away from here, if you find the key)\n" +
             "\tBe careful, good luck!\n" + RESET),

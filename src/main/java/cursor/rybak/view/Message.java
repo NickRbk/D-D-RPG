@@ -1,12 +1,15 @@
 package cursor.rybak.view;
 
+import cursor.rybak.model.maze.Location;
 import cursor.rybak.model.race.AbstractRace;
+import cursor.rybak.model.team.MoveConst;
+import cursor.rybak.model.team.Moves;
 import cursor.rybak.store.RaceMap;
 
-import java.util.Map;
-import java.util.Set;
+import java.lang.reflect.Array;
+import java.util.*;
 
-public class Message implements MagicColors {
+public class Message implements MagicColors, MoveConst {
     private static Map<String, Map<String, AbstractRace>> raceMap = RaceMap.getRace();
 
     /**
@@ -89,6 +92,74 @@ public class Message implements MagicColors {
         }
         System.out.print("\n");
         printOptions(characteristicsKey);
+    }
+
+
+    /**
+     * Analyze which move options available at particular Location
+     *
+     * @param lastSymbol      option for last index (may be straight, right, currentPosition)
+     * @param firstSymbol     option for first index (may be back, left, currentPosition)
+     * @param line            line to analyze (main or cross)
+     * @param currentLocation current position
+     * @param lineSize        length of line (may be 0, 2 or 3)
+     * @param options         final options (String)
+     */
+    private static void defineMoveOptions(String lastSymbol,
+                                          String firstSymbol,
+                                          List<Location> line,
+                                          Location currentLocation,
+                                          int lineSize,
+                                          StringBuilder options) {
+        if (lineSize != 0) {
+            String lineOptions;
+            if (lineSize == 2) lineOptions = line.indexOf(currentLocation) == 0
+                    ? lastSymbol
+                    : firstSymbol;
+            else lineOptions = lastSymbol + firstSymbol;
+
+            options.append(lineOptions);
+        }
+    }
+
+
+    private static void printMoveOptions(String[] options) {
+        List<String> optionsList = new ArrayList<>();
+
+        Arrays.stream(options)
+                .forEach(option -> {
+                    Moves move = Moves.valueOf(option);
+                    optionsList.add(
+                            String.format("%s - %s",
+                            GREEN + move.getOptionAlias() + RESET,
+                            move.getOptionName() )
+                    );
+                });
+
+        System.out.format("Choose move option: [%s] -> ", String.join(", ", optionsList));
+    }
+
+    public static String getAndPrintMoveOptions(Location currentLocation) {
+        int mainLineSize = currentLocation.getLineA().size();
+        int crossLineSize = currentLocation.getLineB().size();
+
+        StringBuilder options = new StringBuilder();
+
+        defineMoveOptions("w", "s",
+                currentLocation.getMainLine(),
+                currentLocation,
+                mainLineSize,
+                options);
+
+        defineMoveOptions("d", "a",
+                currentLocation.getCrossLine(),
+                currentLocation,
+                crossLineSize,
+                options);
+
+        printMoveOptions(options.toString().toUpperCase().split(""));
+
+        return "[" + options.toString() + "]";
     }
 
 

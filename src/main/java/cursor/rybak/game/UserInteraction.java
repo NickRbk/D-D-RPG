@@ -1,5 +1,6 @@
 package cursor.rybak.game;
 
+import cursor.rybak.model.maze.Location;
 import cursor.rybak.model.race.AbstractRace;
 import cursor.rybak.store.RaceMap;
 import cursor.rybak.view.ErrorMessage;
@@ -51,6 +52,27 @@ public class UserInteraction {
                 if (option >= 1 && option <= items.length) {
                     return option - 1;
                 }
+            }
+
+            ErrorMessage.errorInfo();
+        }
+    }
+
+
+    /**
+     * choose move option
+     * (validate input)
+     *
+     * @return chosen move option
+     */
+    public static String chooseMoveOption(Location currentLocation) {
+        String options = Message.getAndPrintMoveOptions(currentLocation);
+
+        while (true) {
+            String userInput = in.nextLine();
+
+            if (!userInput.isEmpty() && userInput.matches(options)) {
+                return userInput;
             }
 
             ErrorMessage.errorInfo();
