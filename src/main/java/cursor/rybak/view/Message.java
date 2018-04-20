@@ -112,13 +112,17 @@ public class Message implements MagicColors, MoveConst {
                                           StringBuilder options) {
         if (lineSize != 0) {
             String lineOptions;
-            if (lineSize == 2) lineOptions = line.indexOf(currentLocation) == 0
-                    ? lastSymbol
-                    : firstSymbol;
+            if (lineSize == 2) {
+                lineOptions = line.indexOf(currentLocation) == 0
+                        ? lastSymbol
+                        : firstSymbol;
+            }
             else lineOptions = lastSymbol + firstSymbol;
 
             options.append(lineOptions);
         }
+
+        System.out.println(options.toString());
     }
 
 
@@ -151,19 +155,21 @@ public class Message implements MagicColors, MoveConst {
      * @return options
      */
     public static String getAndPrintMoveOptions(Location currentLocation) {
-        int mainLineSize = currentLocation.getMainLine().size();
-        int crossLineSize = currentLocation.getCrossLine().size();
+//        int mainLineSize = currentLocation.getMainLine().size();
+        int mainLineSize = currentLocation.getLineA().size();
+//        int crossLineSize = currentLocation.getCrossLine().size();
+        int crossLineSize = currentLocation.getLineB().size();
 
         StringBuilder options = new StringBuilder();
 
         defineMoveOptions(STRAIGHT_OPTION, BACK_OPTION,
-                currentLocation.getMainLine(),
+                currentLocation.getLineA(),
                 currentLocation,
                 mainLineSize,
                 options);
 
         defineMoveOptions(RIGHT_OPTION, LEFT_OPTION,
-                currentLocation.getCrossLine(),
+                currentLocation.getLineB(),
                 currentLocation,
                 crossLineSize,
                 options);

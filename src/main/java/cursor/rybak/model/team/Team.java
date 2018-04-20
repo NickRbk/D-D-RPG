@@ -31,8 +31,13 @@ public class Team implements Move, MoveConst {
         String[] currentPosition = currentLocation.split("\\|");
         String[] newPosition = newLocation.split("\\|");
 
-        guide.getPlayground().getMaze()[ Integer.parseInt(currentPosition[0]) ][ Integer.parseInt(currentPosition[1]) ] = 1;
-        guide.getPlayground().getMaze()[ Integer.parseInt(newPosition[0]) ][ Integer.parseInt(newPosition[1]) ] = 2;
+        guide.getPlayground().getMaze()
+                [ Integer.parseInt(currentPosition[0]) ]
+                [ Integer.parseInt(currentPosition[1]) ] = 1;
+
+        guide.getPlayground().getMaze()
+                [ Integer.parseInt(newPosition[0]) ]
+                [ Integer.parseInt(newPosition[1]) ] = 2;
     }
 
     /**
@@ -62,6 +67,7 @@ public class Team implements Move, MoveConst {
         int index = getIndex(line);
 
         Location newLocation = line.get(index);
+
         currentLocation.setTeam(null);
         newLocation.setTeam(team);
 
@@ -84,6 +90,7 @@ public class Team implements Move, MoveConst {
                                            Team team) {
 
         Location newLocation = line.get(LEFT_OR_BACK);
+
         currentLocation.setTeam(null);
         newLocation.setTeam(team);
 
@@ -128,8 +135,10 @@ public class Team implements Move, MoveConst {
     public Location move(Location currentLocation, String moveOption, Guide guide) {
 
         // SHOULD BE CHANGE
-        List<Location> mainLine = currentLocation.getMainLine();
-        List<Location> crossLine = currentLocation.getCrossLine();
+//        List<Location> mainLine = currentLocation.getMainLine();
+        List<Location> mainLine = currentLocation.getLineA();
+//        List<Location> crossLine = currentLocation.getCrossLine();
+        List<Location> crossLine = currentLocation.getLineB();
 
         if (LEFT_OPTION.equals(moveOption)) return leftOrBackMove(crossLine, currentLocation, guide, this);
 

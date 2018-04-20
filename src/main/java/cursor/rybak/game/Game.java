@@ -28,6 +28,17 @@ public class Game implements MoveConst {
 
             currentLocation = team.move(currentLocation, moveOption, guide);
             guide.getPlayground().print();
+
+
+            // TEMPORARY CODE
+            System.out.print("\nLine A --> ");
+            currentLocation.getLineA().forEach(l -> System.out.print(l.getCoordinates() + " "));
+            System.out.print("\nLine B --> ");
+            currentLocation.getLineB().forEach(l -> System.out.print(l.getCoordinates() + " "));
+
+            System.out.println("\n");
+            System.out.println(currentLocation.getLineA().size());
+            System.out.println(currentLocation.getLineB().size());
         }
     }
 }
