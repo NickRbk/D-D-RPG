@@ -1,5 +1,6 @@
 package cursor.rybak.game;
 
+import cursor.rybak.model.guide.Guide;
 import cursor.rybak.model.team.MoveConst;
 import cursor.rybak.model.maze.Location;
 import cursor.rybak.model.team.Team;
@@ -17,14 +18,16 @@ public class Game implements MoveConst {
 
         String gameMode = UserInteraction.askGameMode();
 
-        Location currentLocation = MazeSetUp.enterToMaze(team, gameMode);
+        Guide guide = new Guide();
+        Location currentLocation = MazeSetUp.enterToMaze(team, gameMode, guide);
 
         while(!currentLocation.isObjective()) {
             System.out.println(currentLocation);
 
             String moveOption = UserInteraction.chooseMoveOption( currentLocation );
 
-            currentLocation = team.move(currentLocation, moveOption);
+            currentLocation = team.move(currentLocation, moveOption, guide);
+            guide.getPlayground().print();
         }
     }
 }

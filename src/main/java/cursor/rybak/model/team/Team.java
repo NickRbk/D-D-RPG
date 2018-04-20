@@ -1,10 +1,12 @@
 package cursor.rybak.model.team;
 
 import cursor.rybak.game.UserInteraction;
+import cursor.rybak.model.guide.Guide;
 import cursor.rybak.model.maze.Location;
 import cursor.rybak.model.race.AbstractRace;
 import lombok.Getter;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class Team implements Move, MoveConst {
@@ -19,6 +21,18 @@ public class Team implements Move, MoveConst {
     public Team(String name) {
         heroes = createTeam();
         this.name = name;
+    }
+
+
+    private static void moveTeamOnMaze(Guide guide,
+                                       String currentLocation,
+                                       String newLocation) {
+
+        String[] currentPosition = currentLocation.split("\\|");
+        String[] newPosition = newLocation.split("\\|");
+
+        guide.getPlayground().getMaze()[ Integer.parseInt(currentPosition[0]) ][ Integer.parseInt(currentPosition[1]) ] = 1;
+        guide.getPlayground().getMaze()[ Integer.parseInt(newPosition[0]) ][ Integer.parseInt(newPosition[1]) ] = 2;
     }
 
     /**
@@ -40,12 +54,18 @@ public class Team implements Move, MoveConst {
      * @param team            team
      * @return new location
      */
-    private static Location rightOrStraightMove(List<Location> line, Location currentLocation, Team team) {
+    private static Location rightOrStraightMove(List<Location> line,
+                                                Location currentLocation,
+                                                Guide guide,
+                                                Team team) {
+
         int index = getIndex(line);
 
         Location newLocation = line.get(index);
         currentLocation.setTeam(null);
         newLocation.setTeam(team);
+
+        moveTeamOnMaze(guide, currentLocation.getCoordinates(), newLocation.getCoordinates());
 
         return newLocation;
     }
@@ -58,10 +78,16 @@ public class Team implements Move, MoveConst {
      * @param team            team
      * @return new location
      */
-    private static Location leftOrBackMove(List<Location> line, Location currentLocation, Team team) {
+    private static Location leftOrBackMove(List<Location> line,
+                                           Location currentLocation,
+                                           Guide guide,
+                                           Team team) {
+
         Location newLocation = line.get(LEFT_OR_BACK);
         currentLocation.setTeam(null);
         newLocation.setTeam(team);
+
+        moveTeamOnMaze(guide, currentLocation.getCoordinates(), newLocation.getCoordinates());
 
         return newLocation;
     }
@@ -99,19 +125,19 @@ public class Team implements Move, MoveConst {
     }
 
     @Override
-    public Location move(Location currentLocation, String moveOption) {
+    public Location move(Location currentLocation, String moveOption, Guide guide) {
 
         // SHOULD BE CHANGE
-        List<Location> mainLine = currentLocation.getLineA();
-        List<Location> crossLine = currentLocation.getLineB();
+        List<Location> mainLine = currentLocation.getMainLine();
+        List<Location> crossLine = currentLocation.getCrossLine();
 
-        if (LEFT_OPTION.equals(moveOption)) return leftOrBackMove(crossLine, currentLocation, this);
+        if (LEFT_OPTION.equals(moveOption)) return leftOrBackMove(crossLine, currentLocation, guide, this);
 
-        if (RIGHT_OPTION.equals(moveOption)) return rightOrStraightMove(crossLine, currentLocation, this);
+        if (RIGHT_OPTION.equals(moveOption)) return rightOrStraightMove(crossLine, currentLocation, guide, this);
 
-        if (STRAIGHT_OPTION.equals(moveOption)) return rightOrStraightMove(mainLine, currentLocation, this);
+        if (STRAIGHT_OPTION.equals(moveOption)) return rightOrStraightMove(mainLine, currentLocation, guide, this);
 
-        if (BACK_OPTION.equals(moveOption)) return leftOrBackMove(mainLine, currentLocation, this);
+        if (BACK_OPTION.equals(moveOption)) return leftOrBackMove(mainLine, currentLocation, guide, this);
 
         return new Location("");
     }

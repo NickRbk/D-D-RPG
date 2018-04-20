@@ -1,5 +1,6 @@
 package cursor.rybak.game;
 
+import cursor.rybak.model.guide.Guide;
 import cursor.rybak.model.maze.AbstractMaze;
 import cursor.rybak.model.maze.Location;
 import cursor.rybak.model.maze.LocationsDescription;
@@ -35,10 +36,11 @@ public class MazeSetUp {
      * @param gameMode game mode
      * @return start location
      */
-    public static Location enterToMaze(Team team, String gameMode) {
+    public static Location enterToMaze(Team team, String gameMode, Guide guide) {
         AbstractMaze maze = new Maze(Mode.valueOf(gameMode).getWidth(), Mode.valueOf(gameMode).getHeight());
         Map<String, Location> mazeMap = generateGameLocations(maze);
 
+        guide.setPlayground(maze);
         maze.print();
 
         return initStartLocation(mazeMap, maze, team);
