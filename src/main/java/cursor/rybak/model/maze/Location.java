@@ -13,6 +13,7 @@ public class Location {
 
     private String coordinates;
     private Team team;
+    private String description;
 
     /**
      * a main line (move straight and back)

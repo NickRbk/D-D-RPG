@@ -2,6 +2,7 @@ package cursor.rybak.game;
 
 import cursor.rybak.model.maze.AbstractMaze;
 import cursor.rybak.model.maze.Location;
+import cursor.rybak.model.maze.LocationsDescription;
 import cursor.rybak.model.maze.impl.Maze;
 import cursor.rybak.model.maze.map.MazeMap;
 import cursor.rybak.model.team.Team;
@@ -29,15 +30,25 @@ public class MazeSetUp {
 
     public static Location enterToMaze(Team team, String gameMode) {
         AbstractMaze maze = new Maze(Mode.valueOf(gameMode).getWidth(), Mode.valueOf(gameMode).getHeight());
-
         Map<String, Location> mazeMap = generateGameLocations(maze);
+        Location startLocation = initStartLocation(mazeMap, maze, team);
+
+        maze.print();
+
+        return startLocation;
+    }
+
+
+    private static Location initStartLocation(Map<String, Location> mazeMap,
+                                              AbstractMaze maze,
+                                              Team team) {
 
         Location startLocation = mazeMap.get(
                 generateLocationMapKey(maze.getTeamStartPoint()[0], maze.getTeamStartPoint()[1])
         );
 
         startLocation.setTeam(team);
-        maze.print();
+        startLocation.setDescription(LocationsDescription.START_POINT.getDescription());
 
         return startLocation;
     }
