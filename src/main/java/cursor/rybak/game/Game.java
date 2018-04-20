@@ -6,8 +6,6 @@ import cursor.rybak.model.team.Team;
 import cursor.rybak.view.GeneralMessage;
 import cursor.rybak.view.TeamMessage;
 
-import java.util.List;
-
 public class Game implements MoveConst {
     public static void start() {
         GeneralMessage.welcomeInfo();
@@ -28,18 +26,5 @@ public class Game implements MoveConst {
 
             currentLocation = team.move(currentLocation, moveOption);
         }
-
-//        System.out.println(startLocation.getTeam());
-//
-//
-//        System.out.println("Line A\n");
-//        startLocation.getLineA().forEach(l -> System.out.println(l.getCoordinates()));
-//
-//
-//        System.out.println("Line B\n");
-//        startLocation.getLineB().forEach(l -> System.out.println(l.getCoordinates()));
-//
-//        System.out.println(startLocation.getLineA().size());
-//        System.out.println(startLocation.getLineB().size());
     }
 }

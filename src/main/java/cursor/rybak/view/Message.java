@@ -6,7 +6,6 @@ import cursor.rybak.model.team.MoveConst;
 import cursor.rybak.model.team.Moves;
 import cursor.rybak.store.RaceMap;
 
-import java.lang.reflect.Array;
 import java.util.*;
 
 public class Message implements MagicColors, MoveConst {
@@ -123,6 +122,9 @@ public class Message implements MagicColors, MoveConst {
     }
 
 
+    /**
+     * @param options array of options (aliases for move)
+     */
     private static void printMoveOptions(String[] options) {
         List<String> optionsList = new ArrayList<>();
 
@@ -131,27 +133,36 @@ public class Message implements MagicColors, MoveConst {
                     Moves move = Moves.valueOf(option);
                     optionsList.add(
                             String.format("%s - %s",
-                            GREEN + move.getOptionAlias() + RESET,
-                            move.getOptionName() )
+                                    GREEN + move.getOptionAlias() + RESET,
+                                    move.getOptionName())
                     );
                 });
 
         System.out.format("Choose move option: [%s] -> ", String.join(", ", optionsList));
     }
 
+
+    /**
+     * get and print move options
+     * Get needs to limit options to choose,
+     * how team can move
+     *
+     * @param currentLocation current location
+     * @return options
+     */
     public static String getAndPrintMoveOptions(Location currentLocation) {
         int mainLineSize = currentLocation.getLineA().size();
         int crossLineSize = currentLocation.getLineB().size();
 
         StringBuilder options = new StringBuilder();
 
-        defineMoveOptions("w", "s",
+        defineMoveOptions(STRAIGHT_OPTION, BACK_OPTION,
                 currentLocation.getMainLine(),
                 currentLocation,
                 mainLineSize,
                 options);
 
-        defineMoveOptions("d", "a",
+        defineMoveOptions(RIGHT_OPTION, LEFT_OPTION,
                 currentLocation.getCrossLine(),
                 currentLocation,
                 crossLineSize,

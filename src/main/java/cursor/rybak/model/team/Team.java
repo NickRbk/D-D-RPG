@@ -21,6 +21,56 @@ public class Team implements Move, MoveConst {
         this.name = name;
     }
 
+    /**
+     * find index on line (main or cross)
+     *
+     * @param line current line
+     * @return index on line
+     */
+    private static int getIndex(List<Location> line) {
+        if (line.size() == 2) return RIGHT_OR_STRAIGHT_IF_ALONE;
+        else return RIGHT_OR_STRAIGHT_IF_FULL;
+    }
+
+    /**
+     * Actions when move right or straight
+     *
+     * @param line            line
+     * @param currentLocation current location
+     * @param team            team
+     * @return new location
+     */
+    private static Location rightOrStraightMove(List<Location> line, Location currentLocation, Team team) {
+        int index = getIndex(line);
+
+        Location newLocation = line.get(index);
+        currentLocation.setTeam(null);
+        newLocation.setTeam(team);
+
+        return newLocation;
+    }
+
+    /**
+     * Actions when move left or back
+     *
+     * @param line            line
+     * @param currentLocation current location
+     * @param team            team
+     * @return new location
+     */
+    private static Location leftOrBackMove(List<Location> line, Location currentLocation, Team team) {
+        Location newLocation = line.get(LEFT_OR_BACK);
+        currentLocation.setTeam(null);
+        newLocation.setTeam(team);
+
+        return newLocation;
+    }
+
+    /**
+     * create Team
+     *
+     * @return array of members team
+     */
     private AbstractRace[] createTeam() {
         AbstractRace[] selectedHeroes = UserInteraction.askHeroes(TEAM_MEMBERS);
         selectedHeroes[0].setLeader();
@@ -33,7 +83,11 @@ public class Team implements Move, MoveConst {
                 name, heroes.length, printTeamMembers());
     }
 
-    // Function to print all members name in team
+    /**
+     * return String of all members name in team
+     *
+     * @return members name in team
+     */
     private String printTeamMembers() {
         String[] heroesName = new String[heroes.length];
 
@@ -44,7 +98,6 @@ public class Team implements Move, MoveConst {
         return String.join(", ", heroesName);
     }
 
-
     @Override
     public Location move(Location currentLocation, String moveOption) {
 
@@ -52,38 +105,14 @@ public class Team implements Move, MoveConst {
         List<Location> mainLine = currentLocation.getLineA();
         List<Location> crossLine = currentLocation.getLineB();
 
-        if(LEFT_OPTION.equals(moveOption)) return leftOrBackMove(crossLine, currentLocation, this);
+        if (LEFT_OPTION.equals(moveOption)) return leftOrBackMove(crossLine, currentLocation, this);
 
-        if(RIGHT_OPTION.equals(moveOption)) return rightOrStraightMove(crossLine, currentLocation, this);
+        if (RIGHT_OPTION.equals(moveOption)) return rightOrStraightMove(crossLine, currentLocation, this);
 
-        if(STRAIGHT_OPTION.equals(moveOption)) return rightOrStraightMove(mainLine, currentLocation, this);
+        if (STRAIGHT_OPTION.equals(moveOption)) return rightOrStraightMove(mainLine, currentLocation, this);
 
-        if(BACK_OPTION.equals(moveOption)) return leftOrBackMove(mainLine, currentLocation, this);
+        if (BACK_OPTION.equals(moveOption)) return leftOrBackMove(mainLine, currentLocation, this);
 
         return new Location("");
-    }
-
-
-    private static int getIndex(List<Location> line) {
-        if(line.size() == 2) return RIGHT_OR_STRAIGHT_IF_ALONE;
-        else return RIGHT_OR_STRAIGHT_IF_FULL;
-    }
-
-    private static Location rightOrStraightMove(List<Location> line, Location currentLocation, Team team) {
-        int index = getIndex(line);
-
-        Location newLocation = line.get(index);
-        currentLocation.setTeam(null);
-        newLocation.setTeam(team);
-
-        return newLocation;
-    }
-
-    private static Location leftOrBackMove(List<Location> line, Location currentLocation, Team team) {
-        Location newLocation = line.get(LEFT_OR_BACK);
-        currentLocation.setTeam(null);
-        newLocation.setTeam(team);
-
-        return newLocation;
     }
 }
