@@ -5,6 +5,7 @@ import cursor.rybak.model.team.MoveConst;
 import cursor.rybak.model.maze.Location;
 import cursor.rybak.model.team.Team;
 import cursor.rybak.view.GeneralMessage;
+import cursor.rybak.view.Message;
 import cursor.rybak.view.TeamMessage;
 
 public class Game implements MoveConst {
@@ -19,26 +20,28 @@ public class Game implements MoveConst {
         String gameMode = UserInteraction.askGameMode();
 
         Guide guide = new Guide();
-        Location currentLocation = MazeSetUp.enterToMaze(team, gameMode, guide);
 
-        while(!currentLocation.isObjective()) {
-            System.out.println(currentLocation);
+        int i = 0;
 
-            String moveOption = UserInteraction.chooseMoveOption( currentLocation );
+        // Temporary make endless condition
+        while(true) {
+            Location currentLocation = MazeSetUp.enterToMaze(team, gameMode, guide);
 
-            currentLocation = team.move(currentLocation, moveOption, guide);
-            guide.getPlayground().print();
+            while(!currentLocation.isObjective()) {
+                System.out.println(currentLocation);
+                Message.printNeighbors(currentLocation);
+                String moveOption = UserInteraction.chooseMoveOption( currentLocation );
 
+                currentLocation = team.move(currentLocation, moveOption, guide);
+                i++;
 
-            // TEMPORARY CODE
-            System.out.print("\nLine A --> ");
-            currentLocation.getLineA().forEach(l -> System.out.print(l.getCoordinates() + " "));
-            System.out.print("\nLine B --> ");
-            currentLocation.getLineB().forEach(l -> System.out.print(l.getCoordinates() + " "));
+                if(i > 10) {
+                    UserInteraction.offerHint(guide);
+                    i = 0;
+                }
+            }
 
-            System.out.println("\n");
-            System.out.println(currentLocation.getLineA().size());
-            System.out.println(currentLocation.getLineB().size());
+            System.out.println(currentLocation.getDescription());
         }
     }
 }

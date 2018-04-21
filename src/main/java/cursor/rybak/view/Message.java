@@ -4,6 +4,7 @@ import cursor.rybak.model.maze.Location;
 import cursor.rybak.model.race.AbstractRace;
 import cursor.rybak.model.team.MoveConst;
 import cursor.rybak.model.team.Moves;
+import cursor.rybak.model.team.Team;
 import cursor.rybak.store.RaceMap;
 
 import java.util.*;
@@ -120,8 +121,6 @@ public class Message implements MagicColors, MoveConst {
 
             options.append(lineOptions);
         }
-
-        System.out.println(options.toString());
     }
 
 
@@ -153,7 +152,7 @@ public class Message implements MagicColors, MoveConst {
      * @param currentLocation current location
      * @return options
      */
-    public static String getAndPrintMoveOptions(Location currentLocation) {
+    public static String getAndPrintMoveOptions(Location currentLocation, boolean print) {
         List<Location> mainLine = currentLocation.getMainLine();
         List<Location> crossLine = currentLocation.getCrossLine();
 
@@ -171,9 +170,68 @@ public class Message implements MagicColors, MoveConst {
                 crossLine.size(),
                 options);
 
-        printMoveOptions(options.toString().toUpperCase().split(""));
+        if (print) printMoveOptions(options.toString().toUpperCase().split(""));
 
-        return "[" + options.toString() + "]";
+        return options.toString();
+    }
+
+
+    /**
+     * print neighboring locations
+     *
+     * @param currentLocation current position in maze
+     */
+    public static void printNeighbors(Location currentLocation) {
+        System.out.print(CYAN + "\t\tAhh, What we see here..? " + RESET);
+        String[] moveOptions = getAndPrintMoveOptions(currentLocation, false).toUpperCase().split("");
+
+
+        if (moveOptions.length == 1 && BACK_OPTION.equals(moveOptions[0].toLowerCase())) {
+            System.out.format(RED + " Its deadlocked, move back..\n" + RESET);
+        } else {
+            Arrays.stream(moveOptions)
+                    .forEach(option -> {
+                        String direction = Moves.valueOf(option).getOptionName();
+
+                        if (STRAIGHT_OPTION.equals(option.toLowerCase())) {
+                            List<Location> line = currentLocation.getMainLine();
+                            Location StraightLocation = line.get(Team.getLocationIndex(line));
+                            printNeighborsLabel(StraightLocation, GREEN + direction + RESET);
+                        }
+
+                        if (BACK_OPTION.equals(option.toLowerCase())) {
+                            List<Location> line = currentLocation.getMainLine();
+                            Location BackLocation = line.get(LEFT_OR_BACK);
+                            printNeighborsLabel(BackLocation, GREEN + direction + RESET);
+                        }
+
+                        if (LEFT_OPTION.equals(option.toLowerCase())) {
+                            List<Location> line = currentLocation.getCrossLine();
+                            Location LeftLocation = line.get(LEFT_OR_BACK);
+                            printNeighborsLabel(LeftLocation, RED + direction + RESET);
+                        }
+
+                        if (RIGHT_OPTION.equals(option.toLowerCase())) {
+                            List<Location> line = currentLocation.getCrossLine();
+                            Location RightLocation = line.get(Team.getLocationIndex(line));
+                            printNeighborsLabel(RightLocation, RED + direction + RESET);
+                        }
+                    });
+        }
+
+        System.out.println("\n");
+    }
+
+
+    /**
+     * print neighbor label
+     *
+     * @param neighborLocation neighbor
+     * @param direction        direction (left? right, straight, back)
+     */
+    private static void printNeighborsLabel(Location neighborLocation, String direction) {
+        System.out.format("\n\t\t%sOn the%s %s %sis Room #%s%s", CYAN, RESET, direction,
+                CYAN, neighborLocation.getCoordinates(), RESET);
     }
 
 
@@ -237,5 +295,10 @@ public class Message implements MagicColors, MoveConst {
      */
     public static void printRemainedInfo(int remainedPoints) {
         System.out.format("%s| You have %d points left |%s ", RED, remainedPoints, RESET);
+    }
+
+
+    public static void askAboutHint() {
+        System.out.print(BLUE + "\tMaybe you want to see a maze map ?)) [y - yes] --> " + RESET);
     }
 }

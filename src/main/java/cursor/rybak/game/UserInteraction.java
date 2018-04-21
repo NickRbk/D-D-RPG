@@ -1,6 +1,8 @@
 package cursor.rybak.game;
 
+import cursor.rybak.model.guide.Guide;
 import cursor.rybak.model.maze.Location;
+import cursor.rybak.model.maze.MazeConst;
 import cursor.rybak.model.race.AbstractRace;
 import cursor.rybak.store.RaceMap;
 import cursor.rybak.view.ErrorMessage;
@@ -12,7 +14,7 @@ import java.util.Map;
 import java.util.Scanner;
 import java.util.Set;
 
-public class UserInteraction {
+public class UserInteraction implements MazeConst {
     private static final Scanner in = new Scanner(System.in);
 
     /**
@@ -31,6 +33,21 @@ public class UserInteraction {
                 return userInput;
             }
             ErrorMessage.errorEmptyInput();
+        }
+    }
+
+
+    /**
+     * Offer a hint
+     *
+     * @param guide maze map holder
+     */
+    public static void offerHint(Guide guide) {
+        Message.askAboutHint();
+        String userInput = in.nextLine();
+
+        if ("y".equals(userInput)) {
+            guide.getPlayground().print();
         }
     }
 
@@ -66,12 +83,12 @@ public class UserInteraction {
      * @return chosen move option
      */
     public static String chooseMoveOption(Location currentLocation) {
-        String options = Message.getAndPrintMoveOptions(currentLocation);
+        String options = Message.getAndPrintMoveOptions(currentLocation, true);
 
         while (true) {
             String userInput = in.nextLine();
 
-            if (!userInput.isEmpty() && userInput.matches(options)) {
+            if (!userInput.isEmpty() && userInput.matches("[" + options + "]")) {
                 return userInput;
             }
 
@@ -280,11 +297,11 @@ public class UserInteraction {
      * @param points         upgrade points
      */
     private static void upgradeCharacteristic(String characteristic, AbstractRace hero, int points) {
-        if("charisma".equals(characteristic)) hero.setCharisma(points);
-        if("stamina".equals(characteristic)) hero.setStamina(points);
-        if("intellect".equals(characteristic)) hero.setIntellect(points);
-        if("agility".equals(characteristic)) hero.setAgility(points);
-        if("concentration".equals(characteristic)) hero.setConcentration(points);
+        if ("charisma".equals(characteristic)) hero.setCharisma(points);
+        if ("stamina".equals(characteristic)) hero.setStamina(points);
+        if ("intellect".equals(characteristic)) hero.setIntellect(points);
+        if ("agility".equals(characteristic)) hero.setAgility(points);
+        if ("concentration".equals(characteristic)) hero.setConcentration(points);
     }
 
 

@@ -1,13 +1,14 @@
 package cursor.rybak.model.maze.map;
 
 import cursor.rybak.model.maze.Location;
+import cursor.rybak.model.maze.MazeConst;
 
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-public class MazeMap {
+public class MazeMap implements MazeConst {
 
     /**
      * Generate maze map.
@@ -29,7 +30,7 @@ public class MazeMap {
             for (int j = 0; j < height; j++) {
                 String key = String.format("%d|%d", i, j);
 
-                if (maze[i][j] != 0) {
+                if (maze[i][j] != WALL) {
                     mazeMap.put(key, new Location(key));
                 }
             }
@@ -65,7 +66,7 @@ public class MazeMap {
 
             for (int col = 0; col < width; col++) {
 
-                if (maze[col][row] != 0) {
+                if (maze[col][row] != WALL) {
 
                     addToLineLocation(col, row, keys, lineA, mazeMap);
                     counterA++;
@@ -123,7 +124,7 @@ public class MazeMap {
             for (int row = height - 1; row >= 0; row--) {
 
 
-                if (maze[col][row] != 0) {
+                if (maze[col][row] != WALL) {
 
                     addToLineLocation(col, row, keys, lineB, mazeMap);
                     counterB++;

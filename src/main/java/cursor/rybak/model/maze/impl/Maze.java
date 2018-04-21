@@ -25,14 +25,15 @@ public class Maze extends AbstractMaze {
         List<int[]> walls = new ArrayList<>();
         Random random = new Random();
 
-        int initX = random.nextInt(width - width / 2);
-        int initY = 1 +random.nextInt(height - height / 2);
+        int initX = random.nextInt(width - width / 2) + 2;
+        int initY = height - 1;
 
-
+        maze[initX - 1][initY] = PATH;
         maze[initX][initY] = PATH;
         maze[initX+1][initY] = PATH;
         maze[initX+1][initY-1] = PATH;
         maze[initX+2][initY] = PATH;
+        maze[initX+3][initY] = PATH;
 
 
         walls.add(randomStartPoint(random));
@@ -59,7 +60,7 @@ public class Maze extends AbstractMaze {
             }
         }
 
-        maze[initX+1][initY] = TEAM;
+        maze[initX+1][initY] = TEAM_VECTOR_UP;
 
         this.setTeamStartPoint(new int[]{initX+1, initY});
     }
@@ -87,23 +88,14 @@ public class Maze extends AbstractMaze {
      * @param row current row
      */
     private void printMazeElement(int col, int row) {
-        switch (maze[col][row]) {
-            case PATH:
-                printMazeElements(col, PATH_ICON);
-                break;
-            case TEAM:
-                printMazeElements(col, TEAM_ICON);
-                break;
-            case ENEMY:
-                printMazeElements(col, ENEMY_ICON);
-                break;
-            case OBJECTIVE:
-                printMazeElements(col, OBJECTIVE_ICON);
-                break;
-            default:
-                printMazeElements(col, WALL_ICON);
-                break;
-        }
+        if(maze[col][row] == WALL) printMazeElements(col, WALL_ICON);
+        if(maze[col][row] == PATH) printMazeElements(col, PATH_ICON);
+        if(maze[col][row] == TEAM_VECTOR_UP) printMazeElements(col, TEAM_ICON_VECTOR_UP);
+        if(maze[col][row] == TEAM_VECTOR_DOWN) printMazeElements(col, TEAM_ICON_VECTOR_DOWN);
+        if(maze[col][row] == TEAM_VECTOR_LEFT) printMazeElements(col, TEAM_ICON_VECTOR_LEFT);
+        if(maze[col][row] == TEAM_VECTOR_RIGHT) printMazeElements(col, TEAM_ICON_VECTOR_RIGHT);
+        if(maze[col][row] == ENEMY) printMazeElements(col, ENEMY_ICON);
+        if(maze[col][row] == OBJECTIVE) printMazeElements(col, OBJECTIVE_ICON);
     }
 
     /**

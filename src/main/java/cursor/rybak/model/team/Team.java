@@ -2,14 +2,16 @@ package cursor.rybak.model.team;
 
 import cursor.rybak.game.UserInteraction;
 import cursor.rybak.model.guide.Guide;
+import cursor.rybak.model.maze.LineTypes;
 import cursor.rybak.model.maze.Location;
+import cursor.rybak.model.maze.MazeConst;
 import cursor.rybak.model.maze.compass.Compass;
 import cursor.rybak.model.race.AbstractRace;
 import lombok.Getter;
 
 import java.util.List;
 
-public class Team implements Move, MoveConst, Compass {
+public class Team implements Move, MoveConst, Compass, MazeConst {
     private static final int TEAM_MEMBERS = 3;
 
     @Getter
@@ -23,34 +25,58 @@ public class Team implements Move, MoveConst, Compass {
         this.name = name;
     }
 
-
-    private void moveTeamOnMaze(Guide guide,
-                                String currentLocation,
-                                String newLocation) {
-
-        String[] currentPosition = currentLocation.split("\\|");
-        String[] newPosition = newLocation.split("\\|");
-
-        guide.getPlayground().getMaze()
-                [Integer.parseInt(currentPosition[0])]
-                [Integer.parseInt(currentPosition[1])] = 1;
-
-        guide.getPlayground().getMaze()
-                [Integer.parseInt(newPosition[0])]
-                [Integer.parseInt(newPosition[1])] = 2;
-    }
-
     /**
      * find index on line (main or cross)
      *
      * @param line current line
      * @return index on line
      */
-    private int getIndex(List<Location> line) {
+    public static int getLocationIndex(List<Location> line) {
         if (line.size() == 2) return RIGHT_OR_STRAIGHT_IF_ALONE;
         else return RIGHT_OR_STRAIGHT_IF_FULL;
     }
 
+    /**
+     * Move Team icon on maze
+     *
+     * @param guide                      abstraction GUIDE (holder of maze map)
+     * @param currentLocationCoordinates coordinates of current location
+     * @param newLocation                destination location
+     */
+    private void moveTeamOnMaze(Guide guide,
+                                String currentLocationCoordinates,
+                                Location newLocation) {
+
+        String[] currentPosition = currentLocationCoordinates.split("\\|");
+        String[] newPosition = newLocation.getCoordinates().split("\\|");
+
+        guide.getPlayground().getMaze()
+                [Integer.parseInt(currentPosition[0])]
+                [Integer.parseInt(currentPosition[1])] = PATH;
+
+        if (LineTypes.lineTypeA.equals(newLocation.getMainLineType())) {
+
+            if (newLocation.isMainReverse()) {
+                guide.getPlayground().getMaze()
+                        [Integer.parseInt(newPosition[0])]
+                        [Integer.parseInt(newPosition[1])] = TEAM_VECTOR_DOWN;
+            } else {
+                guide.getPlayground().getMaze()
+                        [Integer.parseInt(newPosition[0])]
+                        [Integer.parseInt(newPosition[1])] = TEAM_VECTOR_UP;
+            }
+        } else {
+            if (newLocation.isMainReverse()) {
+                guide.getPlayground().getMaze()
+                        [Integer.parseInt(newPosition[0])]
+                        [Integer.parseInt(newPosition[1])] = TEAM_VECTOR_LEFT;
+            } else {
+                guide.getPlayground().getMaze()
+                        [Integer.parseInt(newPosition[0])]
+                        [Integer.parseInt(newPosition[1])] = TEAM_VECTOR_RIGHT;
+            }
+        }
+    }
 
     /**
      * Actions when move right or straight
@@ -62,19 +88,12 @@ public class Team implements Move, MoveConst, Compass {
      */
     private Location rightOrStraightMove(List<Location> line,
                                          Location currentLocation,
-                                         Guide guide,
                                          Team team) {
 
-        int index = getIndex(line);
+        int index = getLocationIndex(line);
 
         Location newLocation = line.get(index);
-
-        currentLocation.setTeam(null);
-        newLocation.setTeam(team);
-
-        moveTeamOnMaze(guide, currentLocation.getCoordinates(), newLocation.getCoordinates());
-
-        return newLocation;
+        return setNewLocation(currentLocation, newLocation, team);
     }
 
     /**
@@ -87,15 +106,27 @@ public class Team implements Move, MoveConst, Compass {
      */
     private Location leftOrBackMove(List<Location> line,
                                     Location currentLocation,
-                                    Guide guide,
                                     Team team) {
 
         Location newLocation = line.get(LEFT_OR_BACK);
+        return setNewLocation(currentLocation, newLocation, team);
+    }
+
+
+    /**
+     * Helper method for 'leftOrBackMove' & 'rightOrStraightMove'
+     *
+     * @param currentLocation current location
+     * @param newLocation     destination location
+     * @param team            team
+     * @return
+     */
+    private Location setNewLocation(Location currentLocation,
+                                    Location newLocation,
+                                    Team team) {
 
         currentLocation.setTeam(null);
         newLocation.setTeam(team);
-
-        moveTeamOnMaze(guide, currentLocation.getCoordinates(), newLocation.getCoordinates());
 
         return newLocation;
     }
@@ -135,30 +166,36 @@ public class Team implements Move, MoveConst, Compass {
     @Override
     public Location move(Location currentLocation, String moveOption, Guide guide) {
 
+        // NEED REFACTORING
+
         List<Location> mainLine = currentLocation.getMainLine();
         List<Location> crossLine = currentLocation.getCrossLine();
 
         if (LEFT_OPTION.equals(moveOption)) {
-            Location newLocation = leftOrBackMove(crossLine, currentLocation, guide, this);
+            Location newLocation = leftOrBackMove(crossLine, currentLocation, this);
             moveLeftCompass(currentLocation, newLocation);
+            moveTeamOnMaze(guide, currentLocation.getCoordinates(), newLocation);
             return newLocation;
         }
 
         if (RIGHT_OPTION.equals(moveOption)) {
-            Location newLocation = rightOrStraightMove(crossLine, currentLocation, guide, this);
+            Location newLocation = rightOrStraightMove(crossLine, currentLocation, this);
             moveRightCompass(currentLocation, newLocation);
+            moveTeamOnMaze(guide, currentLocation.getCoordinates(), newLocation);
             return newLocation;
         }
 
         if (STRAIGHT_OPTION.equals(moveOption)) {
-            Location newLocation = rightOrStraightMove(mainLine, currentLocation, guide, this);
+            Location newLocation = rightOrStraightMove(mainLine, currentLocation, this);
             moveStraightCompass(currentLocation, newLocation);
+            moveTeamOnMaze(guide, currentLocation.getCoordinates(), newLocation);
             return newLocation;
         }
 
         if (BACK_OPTION.equals(moveOption)) {
-            Location newLocation = leftOrBackMove(mainLine, currentLocation, guide, this);
+            Location newLocation = leftOrBackMove(mainLine, currentLocation, this);
             moveBackCompass(currentLocation, newLocation);
+            moveTeamOnMaze(guide, currentLocation.getCoordinates(), newLocation);
             return newLocation;
         }
 
