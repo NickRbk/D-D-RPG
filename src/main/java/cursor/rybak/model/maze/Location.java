@@ -14,8 +14,13 @@ public class Location {
     private String coordinates;
     private Team team;
     private String description;
+
     private List<Location> mainLine = new LinkedList<>();
+    boolean isMainReverse = false;
+
     private List<Location> crossLine = new LinkedList<>();
+    boolean isCrossReverse = false;
+
     private boolean isObjective = false;
 
     /**
