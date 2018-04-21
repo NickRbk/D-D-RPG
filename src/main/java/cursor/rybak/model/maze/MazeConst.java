@@ -16,6 +16,4 @@ public interface MazeConst {
 
     int MIN_PATHS = 10;
     int LOCATIONS_COUNT = 19;
-
-    String HINT = "cursor";
 }
