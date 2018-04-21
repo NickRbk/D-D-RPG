@@ -29,6 +29,9 @@ public class Game implements MoveConst {
 
             while(!currentLocation.isObjective()) {
                 System.out.println(currentLocation);
+
+                Battle.blitzkrieg(currentLocation);
+
                 Message.printNeighbors(currentLocation);
                 String moveOption = UserInteraction.chooseMoveOption( currentLocation );
 

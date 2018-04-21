@@ -58,7 +58,7 @@ public enum LocationsDescription implements MagicColors {
 
     LOCATION19(CYAN + "\tSome enormous footprints, this is alarming..." + RESET),
 
-    END_POINT(CYAN + "\n\n\t================================" +
+    END_POINT(PURPLE + "\n\n\t================================" +
             "\n\n\tCongratulations!!! You are free!" +
             "\n\n\tContinue our Game)" +
             "\n\n\t================================\n" + RESET);

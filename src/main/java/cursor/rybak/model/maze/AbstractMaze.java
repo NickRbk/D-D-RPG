@@ -4,6 +4,7 @@ import cursor.rybak.view.MagicColors;
 import lombok.Getter;
 import lombok.Setter;
 
+@Getter
 public abstract class AbstractMaze implements MazeConst, MagicColors {
     protected static final String WALL_ICON = "\u2593\u2593";
     protected static final String PATH_ICON = "  ";
@@ -15,18 +16,17 @@ public abstract class AbstractMaze implements MazeConst, MagicColors {
     protected static final String OBJECTIVE_ICON = BLUE + "\u26C7" + RESET;
 
     // save maze dimensions
-    @Getter
     protected int width;
-    @Getter
     protected int height;
 
     // 2 dimension array of our maze
-    @Getter
     protected int[][] maze;
 
-    @Getter
     @Setter
     private int[] teamStartPoint;
+    @Setter
+    private int[] objectiveEndPoint;
+
 
     public AbstractMaze(int width, int height) {
         this.width = width;

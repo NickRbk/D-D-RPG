@@ -1,5 +1,6 @@
 package cursor.rybak.model.maze;
 
+import cursor.rybak.model.enemy.AbstractMonster;
 import cursor.rybak.model.team.Team;
 import lombok.Getter;
 import lombok.Setter;
@@ -13,6 +14,8 @@ public class Location implements LineTypes {
 
     private String coordinates;
     private Team team;
+    private List<AbstractMonster> enemies;
+
     private String description;
 
     private List<Location> mainLine = new LinkedList<>();

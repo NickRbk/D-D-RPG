@@ -119,7 +119,7 @@ public class Team implements Move, MoveConst, Compass, MazeConst {
      * @param currentLocation current location
      * @param newLocation     destination location
      * @param team            team
-     * @return
+     * @return destination Location
      */
     private Location setNewLocation(Location currentLocation,
                                     Location newLocation,

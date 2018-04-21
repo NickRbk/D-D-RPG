@@ -1,5 +1,9 @@
 package cursor.rybak.game;
 
+import cursor.rybak.model.enemy.AbstractMonster;
+import cursor.rybak.model.enemy.MonsterKinds;
+import cursor.rybak.model.enemy.packMap.EnemiesCount;
+import cursor.rybak.model.enemy.packMap.EnemiesPackMap;
 import cursor.rybak.model.guide.Guide;
 import cursor.rybak.model.maze.AbstractMaze;
 import cursor.rybak.model.maze.Location;
@@ -14,18 +18,26 @@ import java.util.List;
 import java.util.Map;
 
 public class MazeSetUp implements MazeConst {
+
+    /**
+     * put Objective into maze
+     *
+     * @param maze    maze
+     * @param mazeMap map of maze path
+     */
     private static void putObjective(AbstractMaze maze, Map<String, Location> mazeMap) {
         String key = null;
 
-        while(key == null) {
+        while (key == null) {
             int positionX = (int) Math.round(Math.random() * (maze.getWidth() - 4) + 1);
             int positionY = (int) Math.round(Math.random() * (maze.getHeight() - 4) + 1);
 
-            if(Math.abs(positionX - maze.getTeamStartPoint()[0]) > 5
+            if (Math.abs(positionX - maze.getTeamStartPoint()[0]) > 5
                     || Math.abs(positionY - maze.getTeamStartPoint()[1]) > 5) {
 
-                if(maze.getMaze()[positionX][positionY] == PATH) {
+                if (maze.getMaze()[positionX][positionY] == PATH) {
                     maze.getMaze()[positionX][positionY] = OBJECTIVE;
+                    maze.setObjectiveEndPoint(new int[]{positionX, positionY});
                     key = String.format("%d|%d", positionX, positionY);
                 }
             }
@@ -34,6 +46,58 @@ public class MazeSetUp implements MazeConst {
         Location endPoint = mazeMap.get(key);
         endPoint.setObjective(true);
         endPoint.setDescription(LocationsDescription.END_POINT.getDescription());
+    }
+
+
+    /**
+     * find free locations for enemies
+     *
+     * @param maze    maze
+     * @param mazeMap map of maze path
+     * @return location for enemies
+     */
+    private static Location getLocationForEnemies(AbstractMaze maze, Map<String, Location> mazeMap) {
+        String key = null;
+
+        while (key == null) {
+            int positionX = (int) Math.floor(Math.random() * maze.getWidth());
+            int positionY = (int) Math.floor(Math.random() * maze.getHeight());
+
+            int mazePoint = maze.getMaze()[positionX][positionY];
+
+            if (mazePoint == PATH) {
+                maze.getMaze()[positionX][positionY] = ENEMY;
+                key = String.format("%d|%d", positionX, positionY);
+            }
+        }
+
+        return mazeMap.get(key);
+    }
+
+
+    /**
+     * put enemies into maze
+     *
+     * @param maze    maze
+     * @param mazeMap map of maze path
+     */
+    private static void putEnemies(AbstractMaze maze,
+                                   Map<String, Location> mazeMap,
+                                   String gameMode) {
+
+        int enemiesKind = (int) Math.floor(Math.random() * MonsterKinds.values().length);
+        String kind = MonsterKinds.values()[enemiesKind].getKind();
+
+        int i = 0;
+
+        Map<String, List<AbstractMonster>> enemiesPack = EnemiesPackMap.getEnemiesPack().get(kind);
+
+        while (i < EnemiesCount.valueOf(gameMode.toUpperCase()).getCount()) {
+            String packIndex = "" + (int)Math.floor(Math.random() * enemiesPack.size());
+            List<AbstractMonster> enemies = enemiesPack.get(packIndex);
+            getLocationForEnemies(maze, mazeMap).setEnemies(enemies);
+            i++;
+        }
     }
 
 
@@ -51,11 +115,11 @@ public class MazeSetUp implements MazeConst {
         do {
             maze = new Maze(Mode.valueOf(gameMode).getWidth(), Mode.valueOf(gameMode).getHeight());
             mazeMap = generateGameLocations(maze);
-        } while(mazeMap.size() < MIN_PATHS);
+        } while (mazeMap.size() < MIN_PATHS);
 
         putObjective(maze, mazeMap);
+        putEnemies(maze, mazeMap, gameMode);
         guide.setPlayground(maze);
-//        maze.print();
 
         return initStartLocation(mazeMap, maze, team);
     }
