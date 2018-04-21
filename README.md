@@ -22,7 +22,7 @@ _**Location is unique for each play and generated with
 For each play Team of heroes randomly placed in some part of our fabulous location
 and start to discover locality, in which exist monsters... or not).
 
-####Some information about maze concept
+### Some information about maze concept
 As mentioned above in this app used Prim's algorithm to create maze skeleton.
 This one is a 2 dimensional int array (0 - WALL, 1 - PATH, etc.).
 
