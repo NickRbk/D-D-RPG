@@ -3,6 +3,10 @@ package cursor.rybak.model.maze.compass;
 import java.util.LinkedList;
 import java.util.List;
 
+
+/**
+ * Util class to clone (in common order and reverse) List
+ */
 public class ListUtil {
     public static <T> List<T> reverse(List<T> list) {
         int length = list.size();

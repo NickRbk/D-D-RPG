@@ -7,7 +7,6 @@ import cursor.rybak.model.maze.compass.Compass;
 import cursor.rybak.model.race.AbstractRace;
 import lombok.Getter;
 
-import java.util.Arrays;
 import java.util.List;
 
 public class Team implements Move, MoveConst, Compass {
@@ -26,19 +25,19 @@ public class Team implements Move, MoveConst, Compass {
 
 
     private void moveTeamOnMaze(Guide guide,
-                                       String currentLocation,
-                                       String newLocation) {
+                                String currentLocation,
+                                String newLocation) {
 
         String[] currentPosition = currentLocation.split("\\|");
         String[] newPosition = newLocation.split("\\|");
 
         guide.getPlayground().getMaze()
-                [ Integer.parseInt(currentPosition[0]) ]
-                [ Integer.parseInt(currentPosition[1]) ] = 1;
+                [Integer.parseInt(currentPosition[0])]
+                [Integer.parseInt(currentPosition[1])] = 1;
 
         guide.getPlayground().getMaze()
-                [ Integer.parseInt(newPosition[0]) ]
-                [ Integer.parseInt(newPosition[1]) ] = 2;
+                [Integer.parseInt(newPosition[0])]
+                [Integer.parseInt(newPosition[1])] = 2;
     }
 
     /**
@@ -62,9 +61,9 @@ public class Team implements Move, MoveConst, Compass {
      * @return new location
      */
     private Location rightOrStraightMove(List<Location> line,
-                                                Location currentLocation,
-                                                Guide guide,
-                                                Team team) {
+                                         Location currentLocation,
+                                         Guide guide,
+                                         Team team) {
 
         int index = getIndex(line);
 
@@ -87,9 +86,9 @@ public class Team implements Move, MoveConst, Compass {
      * @return new location
      */
     private Location leftOrBackMove(List<Location> line,
-                                           Location currentLocation,
-                                           Guide guide,
-                                           Team team) {
+                                    Location currentLocation,
+                                    Guide guide,
+                                    Team team) {
 
         Location newLocation = line.get(LEFT_OR_BACK);
 
@@ -136,11 +135,8 @@ public class Team implements Move, MoveConst, Compass {
     @Override
     public Location move(Location currentLocation, String moveOption, Guide guide) {
 
-        // SHOULD BE CHANGE
         List<Location> mainLine = currentLocation.getMainLine();
-//        List<Location> mainLine = currentLocation.getLineA();
         List<Location> crossLine = currentLocation.getCrossLine();
-//        List<Location> crossLine = currentLocation.getLineB();
 
         if (LEFT_OPTION.equals(moveOption)) {
             Location newLocation = leftOrBackMove(crossLine, currentLocation, guide, this);
@@ -151,19 +147,19 @@ public class Team implements Move, MoveConst, Compass {
         if (RIGHT_OPTION.equals(moveOption)) {
             Location newLocation = rightOrStraightMove(crossLine, currentLocation, guide, this);
             moveRightCompass(currentLocation, newLocation);
-            return  newLocation;
+            return newLocation;
         }
 
         if (STRAIGHT_OPTION.equals(moveOption)) {
             Location newLocation = rightOrStraightMove(mainLine, currentLocation, guide, this);
             moveStraightCompass(currentLocation, newLocation);
-            return  newLocation;
+            return newLocation;
         }
 
         if (BACK_OPTION.equals(moveOption)) {
             Location newLocation = leftOrBackMove(mainLine, currentLocation, guide, this);
             moveBackCompass(currentLocation, newLocation);
-            return  newLocation;
+            return newLocation;
         }
 
         return new Location("");

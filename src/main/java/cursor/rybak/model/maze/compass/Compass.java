@@ -5,21 +5,33 @@ import cursor.rybak.model.maze.Location;
 
 import java.util.List;
 
+
+/**
+ * Vector abstraction, move by abstraction
+ * right, left, straight, back
+ */
 public interface Compass {
+
+    /**
+     * method to move straight
+     *
+     * @param currentLocation current location
+     * @param newLocation     new location
+     */
     default void moveStraightCompass(Location currentLocation, Location newLocation) {
         List<Location> lineA = ListUtil.copy(newLocation.getLineA());
         List<Location> lineB = ListUtil.copy(newLocation.getLineB());
 
         if (LineTypes.lineTypeA.equals(currentLocation.getMainLineType())) {
-            if(currentLocation.isMainReverse()) {
-                newLocation.setMainLine( ListUtil.reverse( lineA ) );
-                newLocation.setCrossLine( ListUtil.reverse( lineB ) );
+            if (currentLocation.isMainReverse()) {
+                newLocation.setMainLine(ListUtil.reverse(lineA));
+                newLocation.setCrossLine(ListUtil.reverse(lineB));
             } else {
                 newLocation.setMainLine(lineA);
                 newLocation.setCrossLine(lineB);
             }
         } else {
-            if(currentLocation.isMainReverse()) {
+            if (currentLocation.isMainReverse()) {
                 newLocation.setMainLine(ListUtil.reverse(lineB));
                 newLocation.setCrossLine(lineA);
             } else {
@@ -28,42 +40,56 @@ public interface Compass {
             }
         }
 
-        newLocation.setMainLineType( currentLocation.getMainLineType() );
-        newLocation.setMainReverse( currentLocation.isMainReverse() );
+        newLocation.setMainLineType(currentLocation.getMainLineType());
+        newLocation.setMainReverse(currentLocation.isMainReverse());
     }
 
+
+    /**
+     * method to move back
+     *
+     * @param currentLocation current location
+     * @param newLocation     new location
+     */
     default void moveBackCompass(Location currentLocation, Location newLocation) {
         List<Location> lineA = ListUtil.copy(newLocation.getLineA());
         List<Location> lineB = ListUtil.copy(newLocation.getLineB());
 
         if (LineTypes.lineTypeA.equals(currentLocation.getMainLineType())) {
-            if(currentLocation.isMainReverse()) {
+            if (currentLocation.isMainReverse()) {
                 newLocation.setMainLine(lineA);
                 newLocation.setCrossLine(lineB);
             } else {
-                newLocation.setMainLine( ListUtil.reverse( lineA ) );
-                newLocation.setCrossLine( ListUtil.reverse( lineB ) );
+                newLocation.setMainLine(ListUtil.reverse(lineA));
+                newLocation.setCrossLine(ListUtil.reverse(lineB));
             }
         } else {
-            if(currentLocation.isMainReverse()) {
+            if (currentLocation.isMainReverse()) {
                 newLocation.setMainLine(lineB);
-                newLocation.setCrossLine( ListUtil.reverse(lineA) );
+                newLocation.setCrossLine(ListUtil.reverse(lineA));
             } else {
-                newLocation.setMainLine( ListUtil.reverse(lineB) );
+                newLocation.setMainLine(ListUtil.reverse(lineB));
                 newLocation.setCrossLine(lineA);
             }
         }
 
-        newLocation.setMainLineType( currentLocation.getMainLineType() );
-        newLocation.setMainReverse( !currentLocation.isMainReverse() );
+        newLocation.setMainLineType(currentLocation.getMainLineType());
+        newLocation.setMainReverse(!currentLocation.isMainReverse());
     }
 
+
+    /**
+     * method to turn right
+     *
+     * @param currentLocation current location
+     * @param newLocation     new location
+     */
     default void moveRightCompass(Location currentLocation, Location newLocation) {
         List<Location> lineA = ListUtil.copy(newLocation.getLineA());
         List<Location> lineB = ListUtil.copy(newLocation.getLineB());
 
         if (LineTypes.lineTypeA.equals(currentLocation.getMainLineType())) {
-            if(currentLocation.isMainReverse()) {
+            if (currentLocation.isMainReverse()) {
                 newLocation.setMainLine(ListUtil.reverse(lineB));
                 newLocation.setCrossLine(lineA);
                 newLocation.setMainReverse(true);
@@ -73,9 +99,9 @@ public interface Compass {
                 newLocation.setMainReverse(false);
             }
 
-            newLocation.setMainLineType( LineTypes.lineTypeB );
+            newLocation.setMainLineType(LineTypes.lineTypeB);
         } else {
-            if(currentLocation.isMainReverse()) {
+            if (currentLocation.isMainReverse()) {
                 newLocation.setMainLine(lineA);
                 newLocation.setCrossLine(lineB);
                 newLocation.setMainReverse(false);
@@ -85,18 +111,25 @@ public interface Compass {
                 newLocation.setMainReverse(true);
             }
 
-            newLocation.setMainLineType( LineTypes.lineTypeA );
+            newLocation.setMainLineType(LineTypes.lineTypeA);
         }
     }
 
+
+    /**
+     * method to turn left
+     *
+     * @param currentLocation current location
+     * @param newLocation     new location
+     */
     default void moveLeftCompass(Location currentLocation, Location newLocation) {
         List<Location> lineA = ListUtil.copy(newLocation.getLineA());
         List<Location> lineB = ListUtil.copy(newLocation.getLineB());
 
-        if(LineTypes.lineTypeA.equals(currentLocation.getMainLineType())) {
-            if(currentLocation.isMainReverse()) {
+        if (LineTypes.lineTypeA.equals(currentLocation.getMainLineType())) {
+            if (currentLocation.isMainReverse()) {
                 newLocation.setMainLine(lineB);
-                newLocation.setCrossLine( ListUtil.reverse(lineA));
+                newLocation.setCrossLine(ListUtil.reverse(lineA));
                 newLocation.setMainReverse(false);
             } else {
                 newLocation.setMainLine(ListUtil.reverse(lineB));
@@ -104,9 +137,9 @@ public interface Compass {
                 newLocation.setMainReverse(true);
             }
 
-            newLocation.setMainLineType( LineTypes.lineTypeB );
+            newLocation.setMainLineType(LineTypes.lineTypeB);
         } else {
-            if(currentLocation.isMainReverse()) {
+            if (currentLocation.isMainReverse()) {
                 newLocation.setMainLine(ListUtil.reverse(lineA));
                 newLocation.setCrossLine(ListUtil.reverse(lineB));
                 newLocation.setMainReverse(true);
@@ -116,7 +149,7 @@ public interface Compass {
                 newLocation.setMainReverse(false);
             }
 
-            newLocation.setMainLineType( LineTypes.lineTypeA );
+            newLocation.setMainLineType(LineTypes.lineTypeA);
         }
     }
 }

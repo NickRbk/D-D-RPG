@@ -155,9 +155,7 @@ public class Message implements MagicColors, MoveConst {
      */
     public static String getAndPrintMoveOptions(Location currentLocation) {
         List<Location> mainLine = currentLocation.getMainLine();
-//        int mainLineSize = currentLocation.getLineA().size();
         List<Location> crossLine = currentLocation.getCrossLine();
-//        int crossLineSize = currentLocation.getLineB().size();
 
         StringBuilder options = new StringBuilder();
 
