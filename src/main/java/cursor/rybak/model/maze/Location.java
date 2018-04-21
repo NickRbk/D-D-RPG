@@ -9,7 +9,7 @@ import java.util.List;
 
 @Getter
 @Setter
-public class Location {
+public class Location implements LineTypes {
 
     private String coordinates;
     private Team team;
@@ -17,9 +17,9 @@ public class Location {
 
     private List<Location> mainLine = new LinkedList<>();
     boolean isMainReverse = false;
+    String mainLineType = lineTypeA;
 
     private List<Location> crossLine = new LinkedList<>();
-    boolean isCrossReverse = false;
 
     private boolean isObjective = false;
 
@@ -28,14 +28,14 @@ public class Location {
      * vertical line
      */
     private List<Location> lineA = new LinkedList<>();
-//    private int currentLocationOnLineA;
+
 
     /**
      * a cross line (move left and back)
      * horizontal line
      */
     private List<Location> lineB = new LinkedList<>();
-//    private int currentLocationOnLineB;
+
 
 
     public Location(String coordinates) {

@@ -154,23 +154,23 @@ public class Message implements MagicColors, MoveConst {
      * @return options
      */
     public static String getAndPrintMoveOptions(Location currentLocation) {
-        int mainLineSize = currentLocation.getMainLine().size();
+        List<Location> mainLine = currentLocation.getMainLine();
 //        int mainLineSize = currentLocation.getLineA().size();
-        int crossLineSize = currentLocation.getCrossLine().size();
+        List<Location> crossLine = currentLocation.getCrossLine();
 //        int crossLineSize = currentLocation.getLineB().size();
 
         StringBuilder options = new StringBuilder();
 
         defineMoveOptions(STRAIGHT_OPTION, BACK_OPTION,
-                currentLocation.getMainLine(),
+                mainLine,
                 currentLocation,
-                mainLineSize,
+                mainLine.size(),
                 options);
 
         defineMoveOptions(RIGHT_OPTION, LEFT_OPTION,
-                currentLocation.getCrossLine(),
+                crossLine,
                 currentLocation,
-                crossLineSize,
+                crossLine.size(),
                 options);
 
         printMoveOptions(options.toString().toUpperCase().split(""));

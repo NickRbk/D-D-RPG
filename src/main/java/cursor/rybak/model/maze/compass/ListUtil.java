@@ -4,7 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class ListUtil {
-    static <T> List<T> reverse(List<T> list) {
+    public static <T> List<T> reverse(List<T> list) {
         int length = list.size();
         List<T> result = new LinkedList<>();
 
@@ -15,7 +15,7 @@ public class ListUtil {
         return result;
     }
 
-    static <T> List<T> copy(List<T> list) {
+    public static <T> List<T> copy(List<T> list) {
         int length = list.size();
         List<T> result = new LinkedList<>();
 

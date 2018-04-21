@@ -73,8 +73,6 @@ public class Team implements Move, MoveConst, Compass {
         currentLocation.setTeam(null);
         newLocation.setTeam(team);
 
-//        moveOnOrdinalWay(currentLocation, newLocation);
-
         moveTeamOnMaze(guide, currentLocation.getCoordinates(), newLocation.getCoordinates());
 
         return newLocation;
@@ -97,8 +95,6 @@ public class Team implements Move, MoveConst, Compass {
 
         currentLocation.setTeam(null);
         newLocation.setTeam(team);
-
-//        moveOnReverseWay(currentLocation, newLocation);
 
         moveTeamOnMaze(guide, currentLocation.getCoordinates(), newLocation.getCoordinates());
 
@@ -147,11 +143,15 @@ public class Team implements Move, MoveConst, Compass {
 //        List<Location> crossLine = currentLocation.getLineB();
 
         if (LEFT_OPTION.equals(moveOption)) {
-            return leftOrBackMove(crossLine, currentLocation, guide, this);
+            Location newLocation = leftOrBackMove(crossLine, currentLocation, guide, this);
+            moveLeftCompass(currentLocation, newLocation);
+            return newLocation;
         }
 
         if (RIGHT_OPTION.equals(moveOption)) {
-            return rightOrStraightMove(crossLine, currentLocation, guide, this);
+            Location newLocation = rightOrStraightMove(crossLine, currentLocation, guide, this);
+            moveRightCompass(currentLocation, newLocation);
+            return  newLocation;
         }
 
         if (STRAIGHT_OPTION.equals(moveOption)) {

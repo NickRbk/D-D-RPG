@@ -4,6 +4,7 @@ import cursor.rybak.model.guide.Guide;
 import cursor.rybak.model.maze.AbstractMaze;
 import cursor.rybak.model.maze.Location;
 import cursor.rybak.model.maze.LocationsDescription;
+import cursor.rybak.model.maze.compass.ListUtil;
 import cursor.rybak.model.maze.impl.Maze;
 import cursor.rybak.model.maze.map.MazeMap;
 import cursor.rybak.model.team.Team;
@@ -65,8 +66,10 @@ public class MazeSetUp {
 
         startLocation.setTeam(team);
         startLocation.setDescription(LocationsDescription.START_POINT.getDescription());
-        startLocation.setMainLine( startLocation.getLineA() );
-        startLocation.setCrossLine( startLocation.getLineB() );
+
+        // ALWAYS pass to MainLine and Cross line COPY of LineA and LineB
+        startLocation.setMainLine( ListUtil.copy(startLocation.getLineA()) );
+        startLocation.setCrossLine( ListUtil.copy(startLocation.getLineB()) );
 
         return startLocation;
     }
