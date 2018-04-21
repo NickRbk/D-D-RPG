@@ -140,7 +140,7 @@ public class Message implements MagicColors, MoveConst {
                     );
                 });
 
-        System.out.format("Choose move option: [%s] -> ", String.join(", ", optionsList));
+        System.out.format("\n\t\tChoose move option: [%s] -> ", String.join(", ", optionsList));
     }
 
 
@@ -218,8 +218,6 @@ public class Message implements MagicColors, MoveConst {
                         }
                     });
         }
-
-        System.out.println("\n");
     }
 
 
